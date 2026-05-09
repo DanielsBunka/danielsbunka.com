@@ -18,7 +18,7 @@ export default function RootLayout({
         
         {/* --- YOUR GLOBAL NAVBAR --- */}
         <nav style={{ 
-          backgroundColor: '#020205', 
+          backgroundColor: '#f10c0c', 
           color: 'white', 
           padding: '15px 30px', 
           display: 'flex', 
@@ -28,7 +28,8 @@ export default function RootLayout({
           <h2 style={{ margin: 0 }}>DB.</h2>
           <div style={{ display: 'flex', gap: '20px' }}>
             {/* We use <Link> instead of <a> so the page doesn't blink when loading */}
-            <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>Home (Bot)</Link>
+            <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>Home
+            </Link>
             <Link href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Me</Link>
             <Link href="/projects" style={{ color: 'white', textDecoration: 'none' }}>Projects</Link>
           </div>

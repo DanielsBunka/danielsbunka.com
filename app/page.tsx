@@ -1,3 +1,4 @@
+// npm run dev to start the website
 "use client"; // Needed whenever you use useState or any browser interactivity
 
 import { useState } from "react"; // useState is how React remembers things on screen
@@ -42,7 +43,7 @@ export default function Home() {
 
   return (
     <main style={{
-      backgroundColor: "#020205",
+      backgroundColor: "#000000",
       minHeight: "100vh",
       color: "#f0f0f0",
       fontFamily: "'DM Sans', sans-serif",
@@ -53,8 +54,8 @@ export default function Home() {
 
         <p style={{
           fontFamily: "monospace",
-          fontSize: "13px",
-          color: "#911111",
+          fontSize: "15px",
+          color: "#ffffff",
           letterSpacing: "0.12em",
           textTransform: "uppercase",
           marginBottom: "16px",
@@ -78,7 +79,7 @@ export default function Home() {
           maxWidth: "500px",
           marginBottom: "36px",
         }}>
-          Building things with <span style={{ color: "#c0c0c0" }}>Python, Next.js</span> & a homelab that never sleeps.
+          Building things with <span style={{ color: "#f80606" }}>Python, Next.js</span> & a homelab that never sleeps.
         </p>
 
         {/* CTA Buttons */}
@@ -161,9 +162,13 @@ export default function Home() {
               {skill.name}
             </span>
           ))}
+
+        
         </div>
       </section>
 
     </main>
   );
 }
+
+
