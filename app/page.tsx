@@ -3,16 +3,56 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const skills = [
-  "Python", "Next.js", "React", "TypeScript",
-  "Git", "REST APIs", "SQL", "Docker", "Linux",
+// ── SKILLS DATA ──
+// Each category has a name and a list of skills.
+// comfortable: true = ●●○, false = ●○○
+const skillGroups = [
+  {
+    category: "Languages",
+    skills: [
+      { name: "Python",     comfortable: true  },
+      { name: "Java",       comfortable: true  },
+      { name: "JavaScript", comfortable: true  },
+      { name: "HTML/CSS",   comfortable: true  },
+      { name: "TypeScript", comfortable: false },
+      { name: "SQL",        comfortable: false },
+    ],
+  },
+  {
+    category: "Frameworks & Libraries",
+    skills: [
+      { name: "React",   comfortable: false },
+      { name: "Next.js", comfortable: false },
+      { name: "Flask",   comfortable: false },
+    ],
+  },
+  {
+    category: "Infrastructure & Tools",
+    skills: [
+      { name: "Git",        comfortable: true  },
+      { name: "Docker",     comfortable: false },
+      { name: "Linux",      comfortable: false },
+      { name: "Twilio API", comfortable: false },
+      { name: "Homelab",    comfortable: false },
+    ],
+  },
 ];
+
+// Renders the dots — ●●○ for comfortable, ●○○ for familiar
+function ProficiencyDots({ comfortable }: { comfortable: boolean }) {
+  return (
+    <span style={{ fontSize: "10px", letterSpacing: "2px", marginLeft: "8px" }}>
+      <span style={{ color: "#911111" }}>●</span>
+      <span style={{ color: comfortable ? "#911111" : "#333" }}>●</span>
+    </span>
+  );
+}
 
 export default function Home() {
   const [copied, setCopied] = useState(false);
 
   function handleCopyEmail() {
-    navigator.clipboard.writeText("daniels.bunka8@gmail.com");
+    navigator.clipboard.writeText("your.email@example.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -25,7 +65,7 @@ export default function Home() {
       fontFamily: "'DM Sans', sans-serif",
     }}>
 
-      {/* ── HERO — centred ── */}
+      {/* ── HERO ── */}
       <section style={{
         padding: "80px 60px 48px",
         display: "flex",
@@ -33,7 +73,6 @@ export default function Home() {
         alignItems: "center",
         textAlign: "center",
       }}>
-
         <p style={{
           fontFamily: "monospace",
           fontSize: "13px",
@@ -97,17 +136,10 @@ export default function Home() {
       </section>
 
       {/* Divider */}
-      <div style={{ height: "1px", background: "#1a1a1f" }} />
+      <div style={{ height: "1px", background: "#1a1a1f", margin: "0 60px" }} />
 
-      {/* ── SKILLS MARQUEE ──
-          How it works:
-          - The outer div clips anything outside its bounds (overflow: hidden)
-          - The inner div contains the skills list TWICE side by side
-          - A CSS animation slides the inner div left continuously
-          - When it's scrolled exactly one full width, it loops seamlessly
-            because the second copy looks identical to the first
-          The animation is defined in globals.css as @keyframes marquee */}
-      <section style={{ padding: "36px 0" }}>
+      {/* ── SKILLS ── */}
+      <section style={{ padding: "56px 60px" }}>
 
         <p style={{
           fontFamily: "monospace",
@@ -115,38 +147,70 @@ export default function Home() {
           color: "#444",
           letterSpacing: "0.1em",
           textTransform: "uppercase",
-          marginBottom: "16px",
-          textAlign: "center",
+          marginBottom: "8px",
         }}>
           // technologies
         </p>
 
-        {/* Outer container — clips the overflow so you only see the visible strip */}
-        <div style={{ overflow: "hidden", width: "100%" }}>
+        {/* Legend */}
+        <div style={{
+          display: "flex",
+          gap: "20px",
+          marginBottom: "36px",
+          fontFamily: "monospace",
+          fontSize: "11px",
+          color: "#555",
+        }}>
+          <span><span style={{ color: "#911111" }}>●●</span> Comfortable</span>
+          <span><span style={{ color: "#911111" }}>●</span>○ Familiar</span>
+        </div>
 
-          {/* Inner strip — twice as wide, slides left via CSS animation */}
-          <div className="marquee-track">
+        {/* Three column grid — one column per category */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "40px",
+        }}>
+          {skillGroups.map((group) => (
+            <div key={group.category}>
 
-            {/* Render the skills list TWICE so the loop is seamless */}
-            {[...skills, ...skills].map((skill, index) => (
-              <span
-                key={index}
-                style={{
-                  fontFamily: "monospace",
-                  fontSize: "12px",
-                  padding: "6px 14px",
-                  borderRadius: "4px",
-                  border: "1px solid #222",
-                  color: "#aaa",
-                  backgroundColor: "#0d0d12",
-                  whiteSpace: "nowrap",
-                  flexShrink: 0,
-                }}
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
+              {/* Category heading */}
+              <p style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "#911111",
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                marginBottom: "16px",
+                margin: "0 0 16px",
+              }}>
+                {group.category}
+              </p>
+
+              {/* Skills list for this category */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {group.skills.map((skill) => (
+                  <div
+                    key={skill.name}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "8px 12px",
+                      borderRadius: "4px",
+                      border: "1px solid #1a1a1f",
+                      backgroundColor: "#0a0a0f",
+                    }}
+                  >
+                    <span style={{ fontSize: "13px", color: "#c0c0c0" }}>
+                      {skill.name}
+                    </span>
+                    <ProficiencyDots comfortable={skill.comfortable} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
