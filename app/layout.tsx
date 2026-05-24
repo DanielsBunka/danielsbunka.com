@@ -14,18 +14,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, fontFamily: 'sans-serif', backgroundColor: '#911111' }}>
+      <body style={{ margin: 0, fontFamily: 'sans-serif', backgroundColor: '#020205' }}>
         
         {/* --- YOUR GLOBAL NAVBAR --- */}
         <nav style={{ 
-          backgroundColor: '#f10c0c', 
+          backgroundColor: '#020205', 
           color: 'white', 
           padding: '15px 30px', 
           display: 'flex', 
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
+          <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>
           <h2 style={{ margin: 0 }}>DB.</h2>
+          </Link>
           <div style={{ display: 'flex', gap: '20px' }}>
             {/* We use <Link> instead of <a> so the page doesn't blink when loading */}
             <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>Home
