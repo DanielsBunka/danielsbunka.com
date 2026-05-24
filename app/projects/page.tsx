@@ -1,49 +1,14 @@
 // app/projects/page.tsx
+//
+// Now reads project metadata directly from the MDX frontmatter.
+// No more separate data.ts file — the MDX files are the source of truth.
 
-// No "use client" needed here — this page has no interactivity,
-// so it can be a plain server component. Simpler = better.
-
-// ─────────────────────────────────────────────
-// YOUR PROJECTS DATA
-// To add a new project: copy one object, paste it, fill it in.
-// The page updates automatically — you never touch the JSX below.
-// ─────────────────────────────────────────────
-const projects = [
-  {
-    title: "Roast My Face",
-    description:
-      "Uses your webcam and an AI API to generate personalised insults, then reads them aloud using your browser's built-in text-to-speech. Cloudflare Worker acts as a secure proxy to keep the API key off the client.",
-    tags: ["JavaScript", "Web Speech API", "Cloudflare Workers", "AI"],
-    github: "https://github.com/DanielsBunka/roast-my-face",
-    accent: "#911111",
-  },
-  {
-    title: "SMS Assistant",
-    description:
-      "A personal assistant that runs 24/7 on my homelab. Text a number and get back live train times between Southport and Liverpool, stock prices, and more. Built with Python and Flask, deployed in Docker via Twilio webhooks.",
-    tags: ["Python", "Flask", "Twilio", "Docker", "REST APIs"],
-    github: "https://github.com/DanielsBunka/sms-assistant",
-    accent: "#911111",
-  },
-  {
-    title: "Homelab",
-    description:
-      "A self-hosted server running ZimaOS with Docker containers for personal projects and services. Currently hosts the SMS Assistant and various other self-hosted apps.",
-    tags: ["Linux", "Docker", "Self-Hosted", "Networking"],
-    github: null, // no repo for this one
-    accent: "#911111",
-  },
-  {
-    title: "University Study Planner",
-    description:
-      "A web app built for a university web development assignment. Includes an interactive calendar with task tracking, a weighted grade calculator with progress bar, and a Pomodoro concentration timer with audio.",
-    tags: ["JavaScript", "HTML", "CSS"],
-    github: null,
-    accent: "#911111",
-  },
-];
+import { getAllProjects } from "@/lib/mdx";
+import Link from "next/link";
 
 export default function ProjectsPage() {
+  const projects = getAllProjects();
+
   return (
     <main
       style={{
@@ -54,7 +19,6 @@ export default function ProjectsPage() {
         fontFamily: "sans-serif",
       }}
     >
-      {/* ── PAGE HEADER ── */}
       <p
         style={{
           fontFamily: "monospace",
@@ -83,11 +47,6 @@ export default function ProjectsPage() {
         A mix of practical tools, dumb ideas, and university work. All of it written by me.
       </p>
 
-      {/* ── PROJECT CARDS ──
-          .map() loops over the projects array above.
-          For each project object, it returns a card.
-          'key' is required — React uses it to track each card.
-          'index' is the position in the array (0, 1, 2...) — used for the number. */}
       <div
         style={{
           display: "grid",
@@ -97,7 +56,7 @@ export default function ProjectsPage() {
       >
         {projects.map((project, index) => (
           <div
-            key={project.title}
+            key={project.slug}
             style={{
               backgroundColor: "#0a0a0f",
               border: "1px solid #1a1a1f",
@@ -108,45 +67,20 @@ export default function ProjectsPage() {
               gap: "16px",
             }}
           >
-            {/* Project number */}
-            <span
-              style={{
-                fontFamily: "monospace",
-                fontSize: "12px",
-                color: "#333",
-              }}
-            >
-              {String(index + 1).padStart(2, "0")} {/* Turns 1 into "01", 2 into "02" etc */}
+            <span style={{ fontFamily: "monospace", fontSize: "12px", color: "#333" }}>
+              {String(index + 1).padStart(2, "0")}
             </span>
 
-            {/* Title */}
-            <h2
-              style={{
-                margin: 0,
-                fontSize: "20px",
-                fontWeight: 600,
-                color: "#f0f0f0",
-              }}
-            >
-              {project.title}
+            <h2 style={{ margin: 0, fontSize: "20px", fontWeight: 600, color: "#f0f0f0" }}>
+              {project.frontmatter.title}
             </h2>
 
-            {/* Description */}
-            <p
-              style={{
-                margin: 0,
-                fontSize: "14px",
-                color: "#777",
-                lineHeight: 1.7,
-                flexGrow: 1, // pushes the tags + button to the bottom of the card
-              }}
-            >
-              {project.description}
+            <p style={{ margin: 0, fontSize: "14px", color: "#777", lineHeight: 1.7, flexGrow: 1 }}>
+              {project.frontmatter.description}
             </p>
 
-            {/* Tech tags — another .map() inside the first one */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {project.tags.map((tag) => (
+              {project.frontmatter.tags.map((tag) => (
                 <span
                   key={tag}
                   style={{
@@ -164,25 +98,18 @@ export default function ProjectsPage() {
               ))}
             </div>
 
-            {/* GitHub link — only shows if the project has one */}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  marginTop: "4px",
-                  fontFamily: "monospace",
-                  fontSize: "12px",
-                  color: "#911111",
-                  textDecoration: "none",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                → View on GitHub
-              </a>
-            )}
+            <Link
+              href={`/projects/${project.slug}`}
+              style={{
+                fontFamily: "monospace",
+                fontSize: "12px",
+                color: "#911111",
+                textDecoration: "none",
+                letterSpacing: "0.05em",
+              }}
+            >
+              → Read more
+            </Link>
           </div>
         ))}
       </div>
