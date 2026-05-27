@@ -1,7 +1,7 @@
 // app/about/page.tsx
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 const timelineEvents = [
   {
@@ -46,105 +46,30 @@ const timelineEvents = [
   },
 ];
 
-// ── LEAFLET MAP COMPONENT ──
-// Leaflet needs the browser's window object to work.
-// useEffect runs only in the browser (never on the server),
-// so we import and initialise Leaflet inside it.
-// useRef holds a reference to the div the map mounts into,
-// and a flag to prevent the map being created twice.
-function OriginMap() {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInitialised = useRef(false);
-
-  useEffect(() => {
-    // If already initialised, don't do it again
-    if (mapInitialised.current) return;
-    mapInitialised.current = true;
-
-    // Dynamically import Leaflet so it never runs on the server
-    import("leaflet").then((L) => {
-      // Leaflet's default icon images break in Next.js — this fixes that
-      // by pointing to the hosted CDN versions instead
-      const DefaultIcon = L.icon({
-        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-        iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-      });
-      L.Marker.prototype.options.icon = DefaultIcon;
-
-      if (!mapRef.current) return;
-
-      // Centre the map roughly over Europe
-      const map = L.map(mapRef.current, {
-        center: [54, 10],
-        zoom: 4,
-        zoomControl: false,     // cleaner without zoom buttons
-        scrollWheelZoom: false, // stops the map hijacking page scroll
-        dragging: false,        // keeps it as a display, not interactive
-        doubleClickZoom: false,
-        attributionControl: false,
-      });
-
-      // Dark tile layer from CartoDB — matches your site's dark theme
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",
-        { subdomains: "abcd" }
-      ).addTo(map);
-
-      // Kuldīga, Latvia
-      const kuldiga: [number, number] = [56.9677, 21.9740];
-      // Southport, England
-      const southport: [number, number] = [53.6450, -3.0050];
-
-      // Red circle markers — matches your site's accent colour
-      const markerStyle = {
-        radius: 7,
-        fillColor: "#911111",
-        color: "#c44",
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.9,
-      };
-
-      L.circleMarker(kuldiga, markerStyle)
-        .bindTooltip("Kuldīga, Latvia", { permanent: true, direction: "right", offset: [10, 0] })
-        .addTo(map);
-
-      L.circleMarker(southport, markerStyle)
-        .bindTooltip("Southport, England", { permanent: true, direction: "right", offset: [10, 0] })
-        .addTo(map);
-
-      // Dashed line connecting the two points
-      L.polyline([kuldiga, southport], {
-        color: "#911111",
-        weight: 1.5,
-        dashArray: "6, 6",
-        opacity: 0.7,
-      }).addTo(map);
-    });
-  }, []);
-
+function PhotoPlaceholder({ caption, style }: { caption: string; style: React.CSSProperties }) {
   return (
-    <>
-      {/* Leaflet needs its own CSS to render correctly */}
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      />
-      <div
-        ref={mapRef}
-        style={{
-          height: "280px",
-          width: "100%",
-          borderRadius: "8px",
-          border: "1px solid #1a1a1f",
-          overflow: "hidden",
-          marginTop: "32px",
-        }}
-      />
-    </>
+    <div style={{
+      backgroundColor: "#0a0a0f",
+      border: "1px dashed #2a2a2f",
+      borderRadius: "8px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "8px",
+      ...style,
+    }}>
+      <span style={{ fontSize: "24px", opacity: 0.3 }}>📷</span>
+      <span style={{
+        fontFamily: "monospace",
+        fontSize: "11px",
+        color: "#444",
+        textAlign: "center",
+        padding: "0 12px",
+      }}>
+        {caption}
+      </span>
+    </div>
   );
 }
 
@@ -185,34 +110,73 @@ export default function AboutPage() {
           Daniels Bunka
         </h1>
 
-        {/* Two column layout — bio left, map right */}
+        {/* Two column layout — bio left, photos right */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "60px",
-          alignItems: "start",
+          alignItems: "stretch",
           maxWidth: "1000px",
         }}>
-          <div>
-            <p style={{ fontSize: "17px", color: "#888", lineHeight: 1.8, marginBottom: "20px" }}>
-              I&apos;m a Computer Science student at LJMU, originally from Kuldīga, Latvia —
-              moved to Southport when I was three and have been here since.
-              I got into programming in high school, starting with Python, and haven&apos;t really stopped since.
-            </p>
 
-            <p style={{ fontSize: "17px", color: "#888", lineHeight: 1.8, marginBottom: "20px" }}>
-              I&apos;m drawn to CS because of the logic and problem solving side of it — the same reason
-              I&apos;m into debating and politics. I want to go into software engineering after graduating.
-            </p>
+          {/* Left — bio text */}
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div>
+              <p style={{ fontSize: "17px", color: "#888", lineHeight: 1.8, marginBottom: "20px" }}>
+                I&apos;m a Computer Science student at LJMU, originally from Kuldīga, Latvia —
+                moved to Southport when I was three and have been here since.
+                I got into programming in high school, starting with Python, and haven&apos;t really stopped since.
+              </p>
 
-            <p style={{ fontSize: "17px", color: "#888", lineHeight: 1.8 }}>
-              Outside of code I follow Counter-Strike esports closely — I&apos;ve been to London twice
-              to watch live tournaments. I&apos;m also into boxing; I watched Usyk vs Dubois and both
-              Fabio Wardley fights live. I run a homelab at home that hosts my personal projects.
-            </p>
+              <p style={{ fontSize: "17px", color: "#888", lineHeight: 1.8, marginBottom: "20px" }}>
+                I&apos;m drawn to CS because of the logic and problem solving side of it — the same reason
+                I&apos;m into debating and politics. I want to go into software engineering after graduating.
+              </p>
+
+              <p style={{ fontSize: "17px", color: "#888", lineHeight: 1.8 }}>
+                Outside of code I follow Counter-Strike esports closely — I&apos;ve been to London twice
+                to watch live tournaments. I&apos;m also into boxing; I watched Usyk vs Dubois and both
+                Fabio Wardley fights live. I run a homelab at home that hosts my personal projects.
+              </p>
+            </div>
           </div>
 
-          <OriginMap />
+          {/* Right — photo grid, stretches to match left column height */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gridTemplateRows: "1fr 1fr",
+            gap: "12px",
+            minHeight: "320px",
+          }}>
+            {/* Portrait — spans both rows */}
+            <PhotoPlaceholder
+              caption="Photo of me"
+              style={{
+                gridColumn: "1",
+                gridRow: "1 / 3",
+                height: "100%",
+              }}
+            />
+
+            {/* Top right */}
+            <PhotoPlaceholder
+              caption="CS tournament, London"
+              style={{
+                gridColumn: "2",
+                gridRow: "1",
+              }}
+            />
+
+            {/* Bottom right */}
+            <PhotoPlaceholder
+              caption="Merseyside Hackathon"
+              style={{
+                gridColumn: "2",
+                gridRow: "2",
+              }}
+            />
+          </div>
         </div>
       </section>
 
@@ -229,9 +193,18 @@ export default function AboutPage() {
           // timeline
         </p>
 
-        <h2 style={{ fontSize: "24px", fontWeight: 600, color: "#f8f8f8", margin: "0 0 48px" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: 600, color: "#f8f8f8", margin: "0 0 8px" }}>
           How I got here
         </h2>
+
+        <p style={{
+          fontFamily: "monospace",
+          fontSize: "11px",
+          color: "#911111",
+          marginBottom: "40px",
+        }}>
+          click any event to expand
+        </p>
 
         <div style={{ position: "relative", maxWidth: "680px" }}>
 
@@ -244,74 +217,91 @@ export default function AboutPage() {
             backgroundColor: "#1a1a1f",
           }} />
 
-          {timelineEvents.map((event, index) => (
-            <div
-              key={index}
-              onClick={() => handleEventClick(index)}
-              style={{
-                display: "flex",
-                gap: "32px",
-                marginBottom: "8px",
-                cursor: "pointer",
-                position: "relative",
-              }}
-            >
-              <div style={{
-                width: "56px",
-                flexShrink: 0,
-                fontFamily: "monospace",
-                fontSize: "11px",
-                color: activeEvent === index ? "#911111" : "#444",
-                paddingTop: "14px",
-                textAlign: "right",
-                transition: "color 0.2s",
-              }}>
-                {event.year}
-              </div>
-
-              <div style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                backgroundColor: activeEvent === index ? "#911111" : "#333",
-                flexShrink: 0,
-                marginTop: "18px",
-                transition: "background-color 0.2s",
-                zIndex: 1,
-              }} />
-
-              <div style={{
-                flex: 1,
-                backgroundColor: activeEvent === index ? "#0a0a0f" : "transparent",
-                border: `1px solid ${activeEvent === index ? "#1a1a1f" : "transparent"}`,
-                borderRadius: "6px",
-                padding: activeEvent === index ? "16px" : "12px 16px",
-                transition: "all 0.2s",
-                marginBottom: "4px",
-              }}>
-                <p style={{
-                  margin: 0,
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  color: activeEvent === index ? "#f0f0f0" : "#888",
+          {timelineEvents.map((event, index) => {
+            const isOpen = activeEvent === index;
+            return (
+              <div
+                key={index}
+                onClick={() => handleEventClick(index)}
+                style={{
+                  display: "flex",
+                  gap: "32px",
+                  marginBottom: "8px",
+                  cursor: "pointer",
+                  position: "relative",
+                }}
+              >
+                <div style={{
+                  width: "56px",
+                  flexShrink: 0,
+                  fontFamily: "monospace",
+                  fontSize: "11px",
+                  color: isOpen ? "#911111" : "#444",
+                  paddingTop: "14px",
+                  textAlign: "right",
                   transition: "color 0.2s",
                 }}>
-                  {event.title}
-                </p>
+                  {event.year}
+                </div>
 
-                {activeEvent === index && (
-                  <p style={{
-                    margin: "8px 0 0",
-                    fontSize: "14px",
-                    color: "#666",
-                    lineHeight: 1.7,
-                  }}>
-                    {event.description}
-                  </p>
-                )}
+                <div style={{
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  backgroundColor: isOpen ? "#911111" : "#333",
+                  flexShrink: 0,
+                  marginTop: "18px",
+                  transition: "background-color 0.2s",
+                  zIndex: 1,
+                }} />
+
+                <div style={{
+                  flex: 1,
+                  backgroundColor: isOpen ? "#0a0a0f" : "transparent",
+                  border: `1px solid ${isOpen ? "#1a1a1f" : "transparent"}`,
+                  borderRadius: "6px",
+                  padding: isOpen ? "16px" : "12px 16px",
+                  transition: "all 0.2s",
+                  marginBottom: "4px",
+                }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <p style={{
+                      margin: 0,
+                      fontSize: "15px",
+                      fontWeight: 500,
+                      color: isOpen ? "#f0f0f0" : "#888",
+                      transition: "color 0.2s",
+                    }}>
+                      {event.title}
+                    </p>
+
+                    <span style={{
+                      color: isOpen ? "#911111" : "#444",
+                      fontSize: "14px",
+                      transition: "transform 0.2s, color 0.2s",
+                      transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
+                      display: "inline-block",
+                      marginLeft: "12px",
+                      flexShrink: 0,
+                    }}>
+                      ›
+                    </span>
+                  </div>
+
+                  {isOpen && (
+                    <p style={{
+                      margin: "8px 0 0",
+                      fontSize: "14px",
+                      color: "#666",
+                      lineHeight: 1.7,
+                    }}>
+                      {event.description}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </main>

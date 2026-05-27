@@ -33,7 +33,9 @@ const skillGroups = [
       { name: "Docker",     comfortable: false },
       { name: "Linux",      comfortable: false },
       { name: "Twilio API", comfortable: false },
+      { name: "AI LLM APIs", comfortable: true },
       { name: "Homelab",    comfortable: false },
+      { name: "Cloudflare Tunnels",    comfortable: false },
     ],
   },
 ];
