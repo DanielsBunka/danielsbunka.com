@@ -1,5 +1,8 @@
+// app/layout.tsx
+// Navbar removed from root layout — home page is fully minimal.
+// About, Projects, and Contact pages include their own navbar.
+
 import type { Metadata } from "next";
-import Link from "next/link"; // Next.js's super-fast link tool
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,32 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, fontFamily: 'sans-serif', backgroundColor: '#020205' }}>
-        
-        {/* --- YOUR GLOBAL NAVBAR --- */}
-        <nav style={{ 
-          backgroundColor: '#020205', 
-          color: 'white', 
-          padding: '15px 30px', 
-          display: 'flex', 
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>
-          <h2 style={{ margin: 0 }}>DB.</h2>
-          </Link>
-          <div style={{ display: 'flex', gap: '20px' }}>
-            {/* We use <Link> instead of <a> so the page doesn't blink when loading */}
-            <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>Home
-            </Link>
-            <Link href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Me</Link>
-            <Link href="/projects" style={{ color: 'white', textDecoration: 'none' }}>Projects</Link>
-          </div>
-        </nav>
-
-        {/* This is where your individual pages (like page.tsx) get injected */}
+      <body style={{ margin: 0, backgroundColor: "#020205" }}>
         {children}
-
       </body>
     </html>
   );
