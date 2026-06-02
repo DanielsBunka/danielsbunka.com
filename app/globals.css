@@ -1,39 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #020205;
-  --foreground: #f0f0f0;
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
+  background: #020205;
+  color: #f0f0f0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ── MARQUEE ANIMATION ──
-   @keyframes defines what happens over one loop of the animation.
-   'from' = start position (no movement)
-   'to'   = end position (slid left by exactly 50% of the total width)
-   
-   Why 50%? Because the track contains the skills list TWICE.
-   So 50% of the total width = exactly one full copy of the list.
-   When it reaches that point, it looks identical to the start — seamless loop. */
+/* ── SPEECH BUBBLE ──
+   The tail is made with two CSS triangles stacked on top of each other.
+   CSS triangles work by setting width/height to 0 and using borders —
+   only the right border is visible, making a left-pointing triangle.
+   ::before = the outer triangle (border colour)
+   ::after  = the inner triangle (fill colour), slightly offset to fake a border */
+.speech-bubble {
+  position: relative;
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  left: -17px;
+  top: 36px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 17px solid #1a1a1f;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  left: -15px;
+  top: 37px;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 15px solid #0a0a0f;
+}
+
+/* Marquee animation — kept in case you want it elsewhere */
 @keyframes marquee {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(-25%); }
 }
 
 .marquee-track {
   display: flex;
   gap: 12px;
-  width: max-content; /* expands to fit all the tags in one row */
-  animation: marquee 20s linear infinite; /* 20s = speed, adjust to taste */
+  width: max-content;
+  animation: marquee 30s linear infinite;
   padding: 0 12px;
 }
 
-/* Pause scrolling when the user hovers over it */
 .marquee-track:hover {
   animation-play-state: paused;
 }
