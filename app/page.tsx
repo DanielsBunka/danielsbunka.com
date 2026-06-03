@@ -7,11 +7,13 @@ import Link from "next/link";
 const hats = [
   { name: "None",       src: null },
   { name: "lovecoding",    src: "/overlays/hats/lovecoding.png" },
+  { name: "angry",    src: "/overlays/hats/angry.png" },
 ];
 
 const moustaches = [
   { name: "None",      src: null },
   { name: "curly1", src: "/overlays/moustaches/curly1.png" },
+  { name: "cat", src: "/overlays/moustaches/cat.png" },
 ];
 
 function cycle(current: number, direction: 1 | -1, length: number) {
@@ -114,7 +116,7 @@ export default function Home() {
                 alt={currentHat.name}
                 style={{
                   position: "absolute",
-                  top: "52%",
+                  top: "53%",
                   left: "50%",
                   transform: "translate(-50%, -50%) scale(2)",
                   width: "400px",
@@ -229,8 +231,7 @@ const arrowLabelStyle: React.CSSProperties = {
   letterSpacing: "0.05em",
 };
 
-// Kept this here just in case you ever want to re-add a highlight color later!
-const primaryButtonStyle: React.CSSProperties = {
+const ghostButtonStyle: React.CSSProperties = {
   backgroundColor: "#111111",
   color: "#ffffff",
   padding: "14px 32px",
@@ -240,13 +241,3 @@ const primaryButtonStyle: React.CSSProperties = {
   fontWeight: 500,
 };
 
-const ghostButtonStyle: React.CSSProperties = {
-  backgroundColor: "transparent",
-  color: "#666",
-  border: "1px solid #e0e0e0",
-  padding: "14px 32px",
-  borderRadius: "8px",
-  textDecoration: "none",
-  fontSize: "15px",
-  fontWeight: 500,
-};
