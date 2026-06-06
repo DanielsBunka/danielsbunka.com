@@ -6,14 +6,16 @@ import Link from "next/link";
 
 const hats = [
   { name: "None",       src: null },
-  { name: "lovecoding",    src: "/overlays/hats/lovecoding.png" },
+  { name: "tophatmaybe",    src: "/overlays/hats/tophatmaybe.png" },
+  { name: "wizard",    src: "/overlays/hats/wizard.png" },
   { name: "angry",    src: "/overlays/hats/angry.png" },
 ];
 
 const moustaches = [
   { name: "None",      src: null },
-  { name: "curly1", src: "/overlays/moustaches/curly1.png" },
+  { name: "curly", src: "/overlays/moustaches/curly.png" },
   { name: "cat", src: "/overlays/moustaches/cat.png" },
+  { name: "long", src: "/overlays/moustaches/long.png" },
 ];
 
 function cycle(current: number, direction: 1 | -1, length: number) {
@@ -39,7 +41,7 @@ export default function Home() {
       fontFamily: "sans-serif",
       gap: "40px",
       padding: "40px",
-      paddingBottom: "15vh", /* Lifts the entire container up off the dead center */
+      paddingBottom: "15vh", 
       boxSizing: "border-box",
     }}>
 
