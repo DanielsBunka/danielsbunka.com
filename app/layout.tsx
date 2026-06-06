@@ -1,9 +1,15 @@
 // app/layout.tsx
-// Navbar removed from root layout — home page is fully minimal.
-// About, Projects, and Contact pages include their own navbar.
 
+// Allows for browser meta data
 import type { Metadata } from "next";
+// Imports Fonts from fonts.google.com
+import { Inter, JetBrains_Mono } from "next/font/google";
+// Imports my CSS file
 import "./globals.css";
+
+// Set the fonts as variables
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 
 export const metadata: Metadata = {
   title: "Daniels Bunka | Portfolio",
@@ -16,7 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+// Injects the variables into the HTML tag so globals.css can see them
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body style={{ margin: 0, backgroundColor: "#020205" }}>
         {children}
       </body>

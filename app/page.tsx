@@ -1,6 +1,7 @@
 // app/page.tsx
 "use client";
 
+// useState - React function for update this variable and re-render the site
 import { useState } from "react";
 import Link from "next/link";
 
@@ -18,6 +19,7 @@ const moustaches = [
   { name: "long", src: "/overlays/moustaches/long.png" },
 ];
 
+// Cycles through and go back to 0
 function cycle(current: number, direction: 1 | -1, length: number) {
   return (current + direction + length) % length;
 }
@@ -29,21 +31,8 @@ export default function Home() {
   const currentHat       = hats[hatIndex];
   const currentMoustache = moustaches[moustacheIndex];
 
-  return (
-    <main style={{
-      backgroundColor: "#f8f8f8",
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      color: "#111111",
-      fontFamily: "sans-serif",
-      gap: "40px",
-      padding: "40px",
-      paddingBottom: "15vh", 
-      boxSizing: "border-box",
-    }}>
+return (
+    <main className="home-layout">
 
       {/* ── HERO WRAPPER ── */}
       <div style={{
@@ -66,26 +55,25 @@ export default function Home() {
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
               <button
                 onClick={() => setHatIndex(i => cycle(i, -1, hats.length))}
-                style={arrowStyle}
+                className="arrow-btn"
                 title="Previous hat"
               >‹</button>
-              <span style={arrowLabelStyle}></span>
+              <span className="arrow-label"></span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
               <button
                 onClick={() => setMoustacheIndex(i => cycle(i, -1, moustaches.length))}
-                style={arrowStyle}
+                className="arrow-btn"
                 title="Previous moustache"
               >‹</button>
-              <span style={arrowLabelStyle}></span>
+              <span className="arrow-label"></span>
             </div>
           </div>
 
           {/* Center — photo */}
           <div style={{ position: "relative", width: "200px", height: "200px" }}>
             
-            {/* 
-              Base Image Container with overflow: hidden. 
+            {/* Base Image Container with overflow: hidden. 
               This clips the zoomed-in image so it stays a perfect circle, 
               but allows the hats to sit outside of it in the parent div.
             */}
@@ -155,18 +143,18 @@ export default function Home() {
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
               <button
                 onClick={() => setHatIndex(i => cycle(i, 1, hats.length))}
-                style={arrowStyle}
+                className="arrow-btn"
                 title="Next hat"
               >›</button>
-              <span style={arrowLabelStyle}></span>
+              <span className="arrow-label"></span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
               <button
                 onClick={() => setMoustacheIndex(i => cycle(i, 1, moustaches.length))}
-                style={arrowStyle}
+                className="arrow-btn"
                 title="Next moustache"
               >›</button>
-              <span style={arrowLabelStyle}></span>
+              <span className="arrow-label"></span>
             </div>
           </div>
         </div>
@@ -186,7 +174,7 @@ export default function Home() {
             margin: 0,
             fontSize: "14px",
             color: "#999",
-            fontFamily: "monospace",
+            fontFamily: "var(--font-jetbrains), monospace",
           }}>
             CS Student · LJMU · Software Engineer
           </p>
@@ -195,13 +183,13 @@ export default function Home() {
 
       {/* ── BUTTONS ── */}
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-        <Link href="/projects" style={ghostButtonStyle}>
+        <Link href="/projects" className="ghost-btn">
           See Projects
         </Link>
-        <Link href="/about" style={ghostButtonStyle}>
+        <Link href="/about" className="ghost-btn">
           About Me
         </Link>
-        <Link href="/contact" style={ghostButtonStyle}>
+        <Link href="/contact" className="ghost-btn">
           Contact Me
         </Link>
       </div>
@@ -209,37 +197,3 @@ export default function Home() {
     </main>
   );
 }
-
-const arrowStyle: React.CSSProperties = {
-  backgroundColor: "transparent",
-  border: "1px solid #e0e0e0",
-  color: "#aaa",
-  width: "36px",
-  height: "36px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  fontSize: "20px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  transition: "border-color 0.2s, color 0.2s",
-};
-
-const arrowLabelStyle: React.CSSProperties = {
-  fontFamily: "monospace",
-  fontSize: "9px",
-  color: "#ccc",
-  textTransform: "uppercase",
-  letterSpacing: "0.05em",
-};
-
-const ghostButtonStyle: React.CSSProperties = {
-  backgroundColor: "#111111",
-  color: "#ffffff",
-  padding: "14px 32px",
-  borderRadius: "8px",
-  textDecoration: "none",
-  fontSize: "15px",
-  fontWeight: 500,
-};
-
