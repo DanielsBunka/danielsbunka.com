@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   color: #111111;
-  gap: 40px;
+  gap: 24px;
   padding: 40px;
   padding-bottom: 15vh; 
   box-sizing: border-box;
@@ -24,23 +24,30 @@ body {
 
 /* Home Page Hat Buttons */
 .arrow-btn {
-  background-color: transparent;
-  border: 1px solid #e0e0e0;
-  color: #aaa;
+  background-color: transparent; /* Removes the heavy black block */
+  color: #888888; /* Subtle grey arrow */
+  border: 1px solid #d4d4d4; /* Matches the border of your new subtitle badge */
   width: 36px;
   height: 36px;
-  border-radius: 6px;
+  border-radius: 8px; 
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.2s, color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .arrow-btn:hover {
-  border-color: #999;
-  color: #333;
+  background-color: #e8e8e8; /* Fills in with the subtitle badge color */
+  color: #111111; /* Arrow turns solid black */
+  border-color: #aaaaaa;
+  transform: scale(1.05); /* Keeps the satisfying hover pop */
+}
+
+.arrow-btn:active {
+  transform: scale(0.95); /* Keeps the physical press-down effect */
 }
 
 .arrow-label {

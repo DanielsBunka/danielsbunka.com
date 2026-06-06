@@ -171,10 +171,15 @@ return (
             Daniels Bunka
           </h1>
           <p style={{
-            margin: 0,
-            fontSize: "14px",
-            color: "#999",
-            fontFamily: "var(--font-jetbrains), monospace",
+            margin: "0 auto", /* Keeps it centered */
+            fontSize: "13px",
+            color: "#333333", /* Dark text for contrast */
+            backgroundColor: "#e8e8e8", /* Light gray box */
+            border: "1px solid #d4d4d4", /* Crisp edge */
+            padding: "6px 16px", /* Gives it breathing room inside the box */
+            borderRadius: "6px", /* Matches your button rounding */
+            display: "inline-block", /* This is the magic line that wraps the box tightly around the text */
+            fontWeight: 600,
           }}>
             CS Student · LJMU · Software Engineer
           </p>
