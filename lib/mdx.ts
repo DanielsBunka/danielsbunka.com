@@ -16,6 +16,7 @@ export type ProjectFrontmatter = {
   description: string;
   tags: string[];
   github: string;
+  date: string;
 };
 
 // Returns the raw MDX content + frontmatter for one project
@@ -59,5 +60,6 @@ export function getAllProjects() {
         slug,
         frontmatter: data as ProjectFrontmatter,
       };
-    });
+    })
+    .sort((a, b) => (a.frontmatter.date < b.frontmatter.date ? 1 : -1));
 }
