@@ -18,16 +18,33 @@ export default function ProjectsPage() {
     }}>
 
       {/* ── MINIMAL TOP BAR ── */}
-      <div style={{ padding: "20px 40px", borderBottom: "1px solid #e8e8e8" }}>
-        <Link href="/" style={{
-          fontWeight: 700,
-          fontSize: "16px",
-          color: "#111111",
-          textDecoration: "none",
-          letterSpacing: "-0.5px",
-        }}>
-          DB.
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        height: "80px",
+        padding: "0 40px 0 0",
+        borderBottom: "1px solid #d4d4d4",
+        boxSizing: "content-box"
+      }}>
+
+        {/* 1. The Home Anchor (Pure, No Tooltip) */}
+        <Link href="/" className="home-badge">
+          DB
         </Link>
+
+        {/* 2. The Breadcrumb Context */}
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "16px",
+          marginLeft: "24px",
+          fontFamily: "var(--font-jetbrains), monospace",
+          fontSize: "13px",
+        }}>
+          <span style={{ color: "#aaaaaa" }}>/</span>
+          <span style={{ color: "#111111", fontWeight: 600 }}>Projects</span>
+        </div>
+
       </div>
 
       {/* ── PAGE CONTENT ── */}

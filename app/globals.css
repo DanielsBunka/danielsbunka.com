@@ -73,3 +73,89 @@ body {
 .ghost-btn:hover {
   background-color: #333333;
 }
+
+/* Home Button */
+
+.home-badge {
+  background-color: #111111;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 38px; /* Massive jump from 18px to fill the space */
+  letter-spacing: -1px; /* Pulls the letters slightly closer together */
+  width: 80px;     
+  height: 80px;    
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 0px; 
+  transition: background-color 0.15s ease;
+}
+
+.home-badge:hover {
+  background-color: #333333;
+}
+
+.breadcrumb-link {
+  color: #888888;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.15s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #111111;
+}
+
+/* ── MDX TYPOGRAPHY SYSTEM ── */
+.markdown-body {
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.8;
+}
+
+.markdown-body h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  color: #111111;
+}
+
+.markdown-body h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  color: #111111;
+}
+
+.markdown-body p {
+  color: #444444;
+  margin-bottom: 24px;
+}
+
+.markdown-body a {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 500;
+}
+
+.markdown-body ul {
+  padding-left: 24px;
+  margin-bottom: 24px;
+  color: #444444;
+}
+
+.markdown-body li {
+  margin-bottom: 8px;
+}
+
+.markdown-body blockquote {
+  border-left: 3px solid #111111;
+  padding-left: 16px;
+  font-style: italic;
+  color: #666666;
+  margin: 24px 0;
+}
