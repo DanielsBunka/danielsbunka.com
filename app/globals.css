@@ -58,23 +58,33 @@ body {
   letter-spacing: 0.05em;
 }
 
-.ghost-btn {
-  background-color: #111111;
-  color: #ffffff;
-  padding: 14px 32px;
-  border-radius: 8px;
+/* ── HOME PAGE BUTTONS ── */
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px; 
+  background-color: #ffffff; /* Crisp white background */
+  border: 1px solid #c4c4c4; /* Firmer structural grey—visible but not heavy */
+  color: #111111; /* Pure black text for instant, undeniable readability */
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 12px; 
+  font-weight: 600; /* Bumped up the font weight so the text commands attention */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   text-decoration: none;
-  font-size: 14px; 
-  font-weight: 600; 
-  letter-spacing: 0.05em; 
-  transition: background-color 0.2s;
+  transition: all 0.15s ease;
+  border-radius: 4px; 
 }
 
-.ghost-btn:hover {
-  background-color: #333333;
+/* The Hover State: Inverts to a solid black block */
+.home-btn:hover {
+  background-color: #111111;
+  border-color: #111111;
+  color: #ffffff;
 }
 
-/* Home Button */
+/* Home Back Button */
 
 .home-badge {
   background-color: #111111;
