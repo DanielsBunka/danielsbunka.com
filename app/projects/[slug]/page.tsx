@@ -72,51 +72,85 @@ export default async function ProjectArticlePage({ params }: Props) {
             }}>
 
                 {/* Article Header */}
-                <header style={{ marginBottom: "48px" }}>
+                <header style={{
+                    paddingBottom: "40px", /* Creates the breathing room ABOVE the line */
+                    marginBottom: "48px",  /* Creates the breathing room BELOW the line */
+                    borderBottom: "1px solid #e8e8e8" /* The razor-sharp structural divider */
+                }}>
+
+                    {/* Metadata Row (Date + Tech Spec Badges) */}
                     <div style={{
-                        fontFamily: "var(--font-jetbrains), monospace",
-                        fontSize: "12px",
-                        color: "#999",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        marginBottom: "16px"
+                        display: "flex",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        gap: "16px",
+                        marginBottom: "24px"
                     }}>
-                        {project.frontmatter.date}
+                        <span style={{
+                            fontFamily: "var(--font-jetbrains), monospace",
+                            fontSize: "12px",
+                            color: "#999",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.05em"
+                        }}>
+                            {project.frontmatter.date}
+                        </span>
+
+                        {project.frontmatter.tags.length > 0 && (
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                                {project.frontmatter.tags.map(tag => (
+                                    <span key={tag} style={{
+                                        padding: "3px 8px",
+                                        border: "1px solid #e5e5e5",
+                                        backgroundColor: "#fafafa",
+                                        color: "#666",
+                                        fontSize: "10px",
+                                        fontFamily: "var(--font-jetbrains), monospace",
+                                        textTransform: "uppercase",
+                                        letterSpacing: "0.05em"
+                                    }}>
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
+                    {/* Title */}
                     <h1 style={{
                         fontSize: "32px",
                         fontWeight: 700,
                         color: "#111111",
-                        margin: "0 0 16px 0",
+                        margin: "0 0 24px 0",
                         letterSpacing: "-0.5px"
                     }}>
                         {project.frontmatter.title}
                     </h1>
 
+                    {/* Description */}
                     <p style={{
                         fontSize: "16px",
                         color: "#666",
                         lineHeight: 1.7,
-                        margin: 0
+                        margin: "0 0 32px 0"
                     }}>
                         {project.frontmatter.description}
                     </p>
 
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "24px" }}>
-                        {project.frontmatter.tags.map(tag => (
-                            <span key={tag} style={{
-                                padding: "4px 12px",
-                                borderRadius: "4px",
-                                border: "1px solid #e0e0e0",
-                                backgroundColor: "#f9f9f9",
-                                color: "#666",
-                                fontSize: "11px",
-                            }}>
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
+                    {/* Standalone Action Row */}
+                    {project.frontmatter.github && (
+                        <div>
+                            <a
+                                href={project.frontmatter.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="github-button"
+                                style={{ margin: 0 }}
+                            >
+                                GitHub Repo ↗
+                            </a>
+                        </div>
+                    )}
                 </header>
 
                 {/* Clean, unbloated Markdown Body */}
