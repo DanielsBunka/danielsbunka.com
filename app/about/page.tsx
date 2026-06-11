@@ -4,6 +4,58 @@
 import Link from "next/link";
 import { useState } from "react";
 
+// --- THE TIMELINE DATA ---
+const SYSTEM_LOGS = [
+  {
+    id: "log_01",
+    date: "2019",
+    title: "Introduction to Coding: GCSE Computer Science",
+    description: "Wrote my first lines of code. Formally introduced to core programming concepts, algorithm design, and control structures using Python."
+  },
+  {
+    id: "log_02",
+    date: "2022",
+    title: "Further Education: Computer Science",
+    description: "Deepened my theoretical understanding of computing systems during college and transitioned into object-oriented programming paradigms using Visual Basic."
+  },
+  {
+    id: "log_03",
+    date: "2025.09",
+    title: "Enrollment: BSc Computer Science, LJMU",
+    description: "Successfully enrolled and began my Computer Science degree, establishing a university-level foundation in data modeling, and full-stack web development."
+  },
+  {
+    id: "log_04",
+    date: "2025.11",
+    title: "Deployment: SOP Arrival Automation (SMS)",
+    description: "Engineered a Python/Flask utility utilizing the Realtime Trains API to automatically ping my father via SMS with accurate arrival times for my commute into Southport (SOP)."
+  },
+  {
+    id: "log_05",
+    date: "2026.02",
+    title: "Shipping: Roast My Face Web App",
+    description: "Developed and deployed a full-stack AI web application. Overcame specific CSS routing and API integration hurdles, pushing the final build to a public GitHub repository."
+  },
+  {
+    id: "log_06",
+    date: "2026.05",
+    title: "Completion: First Year Foundation",
+    description: "Concluded my first year of university, achieving a high First-Class average (~79%) across all technical modules."
+  },
+  {
+    id: "log_07",
+    date: "2026.05",
+    title: "Competition: BCS Smart City Hackathon",
+    description: "Participated in a grueling two-day collaborative coding sprint focused on Smart City Transportation, immediately after finishing my first-year exams."
+  },
+  {
+    id: "log_08",
+    date: "ACTIVE",
+    title: "Placement Search: 2026/2027 Cycle",
+    description: "Actively exploring and securing an industrial placement year. Targeting roles that offer hybrid or remote flexibility to contribute directly to production-level software engineering environments."
+  }
+];
+
 // --- THE HOBBY IMAGE COMPONENT ---
 function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: string }) {
   return (
@@ -20,15 +72,27 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
 }
 
 // --- THE EXPANDABLE TIMELINE NODE COMPONENT ---
-function TimelineNode({ date, title, description, isActive = false }: { date: string, title: string, description: string, isActive?: boolean }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+function TimelineNode({ 
+  date, 
+  title, 
+  description, 
+  isActive = false, 
+  isExpanded, 
+  onToggle 
+}: { 
+  date: string, 
+  title: string, 
+  description: string, 
+  isActive?: boolean, 
+  isExpanded: boolean, 
+  onToggle: () => void 
+}) {
   return (
     <div className="timeline-node-wrapper">
       <div className={`timeline-marker ${isActive ? "active" : ""}`} />
       
       <button 
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={onToggle}
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
       >
         <div>
@@ -62,6 +126,10 @@ function TimelineNode({ date, title, description, isActive = false }: { date: st
 
 // --- MAIN PAGE LAYOUT ---
 export default function AboutPage() {
+  // Tracks which timeline node is currently open. 
+  // Null means all are closed.
+  const [openLogId, setOpenLogId] = useState<string | null>(null);
+
   return (
     <main style={{ minHeight: "100vh", backgroundColor: "var(--bg-white)" }}>
       
@@ -74,7 +142,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px 160px 24px" }}>
         
         {/* TOP ROW: Split Layout */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: "64px", marginBottom: "80px" }}>
@@ -111,38 +179,23 @@ export default function AboutPage() {
         <div style={{ borderBottom: "1px solid var(--border-light)", marginBottom: "80px" }}></div>
 
         {/* BOTTOM ROW: The Interactive Timeline */}
-        <div style={{ maxWidth: "800px" }}>
+        <div style={{ maxWidth: "680px", margin: "0 auto" }}>
           <h2 className="section-heading-terminal" style={{ fontSize: "16px", marginBottom: "40px" }}>
             System Log // Trajectory
           </h2>
 
           <div className="timeline-track">
-            <TimelineNode 
-              date="2025.09" 
-              title="Enrollment: BSc Computer Science, LJMU" 
-              description="Successfully enrolled and began the first year of my Computer Science degree, establishing a foundation in intro programming, data modeling, and web development."
-            />
-            <TimelineNode 
-              date="2025.11" 
-              title="Deployment: SOP Arrival Automation (SMS)" 
-              description="Engineered a Python/Flask utility utilizing the Realtime Trains API to automatically ping my father via SMS with accurate arrival times for my commute into Southport (SOP)."
-            />
-            <TimelineNode   
-              date="2026.02" 
-              title="Shipping: Roast My Face Web App" 
-              description="Developed and deployed a full-stack AI web application. Overcame specific CSS routing and API integration hurdles, pushing the final build to a public GitHub repository."
-            />
-            <TimelineNode 
-              date="2026.05" 
-              title="Competition: BCS Smart City Hackathon" 
-              description="Participated in a grueling two-day collaborative coding sprint focused on Smart City Transportation, immediately after finishing my first year of university."
-            />
-            <TimelineNode 
-              date="ACTIVE" 
-              title="Placement Search: 2026/2027 Cycle" 
-              description="Actively exploring and securing an industrial placement year. Targeting roles that offer hybrid or remote flexibility to contribute directly to production-level software engineering environments."
-              isActive={true}
-            />
+            {SYSTEM_LOGS.map((log) => (
+              <TimelineNode 
+                key={log.id}
+                date={log.date}
+                title={log.title}
+                description={log.description}
+                isActive={log.id === "log_08"} // Highlights the active placement search
+                isExpanded={openLogId === log.id}
+                onToggle={() => setOpenLogId(openLogId === log.id ? null : log.id)}
+              />
+            ))}
           </div>
         </div>
 

@@ -576,13 +576,15 @@ body {
   font-size: 16px;
 }
 
-.timeline-action {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #cccccc;
-  padding-left: 16px;
+.timeline-action { 
+  font-family: var(--font-mono); 
+  font-size: 11px; 
+  font-weight: 700; 
+  letter-spacing: 0.05em; 
+  color: #cccccc; 
+  padding-left: 16px; 
+  white-space: nowrap; /* Forces the text to stay on one single line */
+  flex-shrink: 0; /* Prevents flexbox from crushing it when the title gets long */
 }
 
 .timeline-btn:hover:not(.expanded) .timeline-action {
