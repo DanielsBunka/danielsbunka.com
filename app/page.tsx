@@ -164,18 +164,19 @@ export default function Home() {
           }}>
             Daniels Bunka
           </h1>
-          <p style={{
-            margin: "0 auto",
-            fontSize: "11px",
-            fontFamily: "var(--font-jetbrains), monospace",
+<p style={{
+            margin: "0 auto", 
+            fontSize: "11px", 
+            fontFamily: "var(--font-jetbrains), monospace", 
             textTransform: "uppercase",
             letterSpacing: "0.05em",
-            color: "#666666",
-            backgroundColor: "#fafafa",
-            border: "1px solid #e5e5e5",
-            padding: "4px 12px",
-            borderRadius: "4px", /* Matched to the badge radius on article pages */
-            display: "inline-block",
+            color: "#444444", /* Richer charcoal so it doesn't wash out */
+            backgroundColor: "#fafafa", 
+            border: "1px solid #d4d4d4", /* Firmer boundary */
+            fontWeight: 600, /* Keep the weight up for readability */
+            padding: "4px 12px", 
+            borderRadius: "4px", 
+            display: "inline-block", 
           }}>
             CS Student // LJMU // Software Engineer
           </p>

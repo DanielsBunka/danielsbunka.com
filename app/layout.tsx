@@ -21,9 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-// Injects the variables into the HTML tag so globals.css can see them
+    // Injects the variables into the HTML tag so globals.css can see them
     <html lang="en" className={`${jetbrainsMono.variable}`}>
-      <body style={{ margin: 0, backgroundColor: "#020205" }}>
+      <body style={{ margin: 0 }}>
         {children}
       </body>
     </html>
