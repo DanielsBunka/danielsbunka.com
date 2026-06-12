@@ -53,6 +53,15 @@ body {
   font-size: 13px;
 }
 
+.nav-divider { 
+  color: #aaaaaa; 
+}
+
+.nav-current { 
+  color: var(--ink-black); 
+  font-weight: 600; 
+}
+
 /* Shared Badges & Tags */
 .terminal-badge {
   font-family: var(--font-mono);
@@ -122,7 +131,7 @@ body {
   background-color: #333333;
 }
 
-/* MDX Typography System (Used across Articles and About pages) */
+/* MDX Typography System */
 .markdown-body {
   font-size: 16px;
   color: #333333;
@@ -216,7 +225,6 @@ body {
   border: 1px solid #e8e8e8;
 }
 
-
 /* =========================================
    1. HOME PAGE
    ========================================= */
@@ -267,7 +275,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-
 
 /* =========================================
    2. PROJECTS & ARTICLES
@@ -352,7 +359,6 @@ body {
   color: var(--ink-black);
 }
 
-/* Tags */
 .filter-tag {
   padding: 6px 14px;
   border-radius: 6px;
@@ -401,7 +407,6 @@ body {
   color: var(--bg-white);
 }
 
-/* Articles Specifics */
 .article-header {
   padding-bottom: 40px;
   margin-bottom: 48px;
@@ -431,10 +436,64 @@ body {
   margin: 0 0 32px 0;
 }
 
-
 /* =========================================
-   3. ABOUT ME
+   3. ABOUT PAGE
    ========================================= */
+
+/* --- Layout Wrappers --- */
+.about-main {
+  min-height: 100vh;
+  background-color: var(--bg-white);
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px 160px 24px;
+  box-sizing: border-box;
+}
+
+.about-split-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 64px;
+  margin-bottom: 80px;
+  box-sizing: border-box;
+}
+
+.about-split-row-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 64px;
+  box-sizing: border-box;
+}
+
+.about-col-readme {
+  flex: 1 1 350px;
+  box-sizing: border-box;
+}
+
+.about-col-hobbies {
+  flex: 2.5 1 500px;
+  box-sizing: border-box;
+}
+
+.about-col-timeline {
+  flex: 1.5 1 500px;
+  box-sizing: border-box;
+}
+
+.about-col-telemetry {
+  flex: 1 1 350px;
+  box-sizing: border-box;
+}
+
+.about-structural-divider {
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 80px;
+}
+
+/* --- Section Headings --- */
 .section-heading-terminal {
   font-family: var(--font-mono);
   font-size: 13px;
@@ -447,7 +506,12 @@ body {
   line-height: 1;
 }
 
-/* Hobbies Grid */
+.section-heading-terminal.large {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+/* --- Hobbies Grid --- */
 .hobby-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -496,7 +560,7 @@ body {
   width: fit-content;
 }
 
-/* Timeline */
+/* --- Timeline Component --- */
 .timeline-track {
   border-left: 2px solid #e8e8e8;
   margin-left: 6px;
@@ -583,8 +647,8 @@ body {
   letter-spacing: 0.05em; 
   color: #cccccc; 
   padding-left: 16px; 
-  white-space: nowrap; /* Forces the text to stay on one single line */
-  flex-shrink: 0; /* Prevents flexbox from crushing it when the title gets long */
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .timeline-btn:hover:not(.expanded) .timeline-action {
@@ -592,8 +656,15 @@ body {
 }
 
 .timeline-content-wrapper {
+  max-height: 0px;
+  opacity: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.timeline-content-wrapper.expanded {
+  max-height: 200px;
+  opacity: 1;
 }
 
 .timeline-content {
@@ -607,6 +678,139 @@ body {
   line-height: 1.6;
 }
 
+/* --- Telemetry Dashboard --- */
+.telemetry-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: var(--bg-offwhite);
+  padding: 24px 32px;
+  border: 1px solid var(--border-medium);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.telemetry-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.telemetry-zone-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-black);
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--ink-black);
+  padding-bottom: 8px;
+}
+
+.telemetry-zone-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.telemetry-inline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--ink-black);
+  padding-bottom: 8px;
+}
+
+.telemetry-inline-header .telemetry-zone-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.telemetry-legend {
+  display: flex;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.telemetry-legend-text {
+  color: var(--ink-grey);
+}
+
+.telemetry-legend-dot {
+  color: var(--ink-black);
+  letter-spacing: 2px;
+}
+
+.telemetry-subgroups {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.telemetry-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemetry-subgroup-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink-grey);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.stat-block {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--border-medium);
+  padding-bottom: 8px;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-black);
+  font-weight: 600;
+  text-align: right;
+}
+
+.skill-meter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 8px 0;
+  gap: 16px;
+}
+
+.skill-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-charcoal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.skill-value {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-black);
+  letter-spacing: 4px;
+}
 
 /* =========================================
    4. 404 ERROR PAGE

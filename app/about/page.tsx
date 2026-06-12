@@ -74,29 +74,9 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
 // --- TELEMETRY: BASIC STAT BLOCK ---
 function StatBlock({ label, value }: { label: string, value: string }) {
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "space-between", 
-      borderBottom: "1px dashed var(--border-medium)", 
-      paddingBottom: "8px",
-      alignItems: "flex-end",
-      gap: "16px"
-    }}>
-      <span style={{ 
-        fontFamily: "var(--font-mono)", 
-        fontSize: "11px", 
-        color: "var(--ink-grey)",
-        textTransform: "uppercase",
-        letterSpacing: "0.05em",
-        flexShrink: 0
-      }}>{label}</span>
-      <span style={{ 
-        fontFamily: "var(--font-mono)", 
-        fontSize: "13px", 
-        color: "var(--ink-black)",
-        fontWeight: 600,
-        textAlign: "right"
-      }}>{value}</span>
+    <div className="stat-block">
+      <span className="stat-label">{label}</span>
+      <span className="stat-value">{value}</span>
     </div>
   );
 }
@@ -104,27 +84,9 @@ function StatBlock({ label, value }: { label: string, value: string }) {
 // --- TELEMETRY: REFINED CIRCULAR SYSTEM METERS ---
 function SkillMeter({ skill, comfortable }: { skill: string, comfortable: boolean }) {
   return (
-    <div style={{ 
-      display: "flex", 
-      justifyContent: "space-between", 
-      alignItems: "center",
-      marginBottom: "8px",
-      gap: "16px"
-    }}>
-      <span style={{ 
-        fontFamily: "var(--font-mono)", 
-        fontSize: "11px", 
-        color: "var(--ink-charcoal)",
-        textTransform: "uppercase",
-        letterSpacing: "0.05em",
-        flexShrink: 0
-      }}>{skill}</span>
-      <span style={{ 
-        fontFamily: "var(--font-mono)", 
-        fontSize: "11px", 
-        color: "var(--ink-black)",
-        letterSpacing: "4px"
-      }}>
+    <div className="skill-meter">
+      <span className="skill-label">{skill}</span>
+      <span className="skill-value">
         {comfortable ? "● ●" : "● ○"}
       </span>
     </div>
@@ -151,9 +113,18 @@ function TimelineNode({
     <div className="timeline-node-wrapper">
       <div className={`timeline-marker ${isActive ? "active" : ""}`} />
       
-      <button 
+      {/* Upgraded from <button> to a valid, clickable <div> to prevent strict HTML parsing errors */}
+      <div 
         onClick={onToggle}
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onToggle();
+          }
+        }}
       >
         <div>
           <div className={`timeline-date ${isActive ? "active" : ""}`}>
@@ -167,15 +138,9 @@ function TimelineNode({
         <div className="timeline-action">
           {isExpanded ? "[ - ] CLOSE" : "[ + ] EXPAND"}
         </div>
-      </button>
+      </div>
 
-      <div 
-        className="timeline-content-wrapper" 
-        style={{ 
-          maxHeight: isExpanded ? "200px" : "0px", 
-          opacity: isExpanded ? 1 : 0 
-        }}
-      >
+      <div className={`timeline-content-wrapper ${isExpanded ? "expanded" : ""}`}>
         <div className="timeline-content">
           {description}
         </div>
@@ -189,24 +154,24 @@ export default function AboutPage() {
   const [openLogId, setOpenLogId] = useState<string | null>(null);
 
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "var(--bg-white)" }}>
+    <main className="about-main">
       
       {/* MINIMAL TOP BAR */}
       <div className="top-nav-bar">
         <Link className="home-badge" href="/">DB</Link>
         <div className="nav-breadcrumb">
-          <span style={{ color: "#aaaaaa" }}>/</span>
-          <span style={{ color: "var(--ink-black)", fontWeight: 600 }}>About Me</span>
+          <span className="nav-divider">/</span>
+          <span className="nav-current">About Me</span>
         </div>
       </div>
 
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 24px 160px 24px" }}>
+      <div className="about-container">
         
         {/* TOP ROW: Split Layout */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "64px", marginBottom: "80px" }}>
+        <div className="about-split-row">
           
           {/* LEFT: The Readme */}
-          <div className="markdown-body" style={{ flex: "1 1 350px" }}>
+          <div className="markdown-body about-col-readme">
             <h1>About Me.</h1>
             <p>
               I am a Computer Science student at Liverpool John Moores University, based in Southport. I specialize in building practical, project-based software and managing self-hosted server infrastructure.
@@ -220,7 +185,7 @@ export default function AboutPage() {
           </div>
 
           {/* RIGHT: Indexed Assets / Image Board */}
-          <div style={{ flex: "2.5 1 500px" }}>
+          <div className="about-col-hobbies">
             <h2 className="section-heading-terminal">
               Indexed Assets // Hobbies
             </h2>
@@ -234,14 +199,14 @@ export default function AboutPage() {
         </div>
 
         {/* STRUCTURAL DIVIDER */}
-        <div style={{ borderBottom: "1px solid var(--border-light)", marginBottom: "80px" }}></div>
+        <div className="about-structural-divider"></div>
 
         {/* BOTTOM ROW: Timeline & Telemetry */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "64px" }}>
+        <div className="about-split-row-bottom">
           
           {/* LEFT: The Interactive Timeline */}
-          <div style={{ flex: "1.5 1 500px" }}>
-            <h2 className="section-heading-terminal" style={{ fontSize: "16px", marginBottom: "40px" }}>
+          <div className="about-col-timeline">
+            <h2 className="section-heading-terminal large">
               System Log // Trajectory
             </h2>
 
@@ -261,74 +226,66 @@ export default function AboutPage() {
           </div>
 
           {/* RIGHT: Live Telemetry Dashboard */}
-          <div style={{ flex: "1 1 350px" }}>
-            <h2 className="section-heading-terminal" style={{ fontSize: "16px", marginBottom: "40px" }}>
+          <div className="about-col-telemetry">
+            <h2 className="section-heading-terminal large">
               Live Telemetry // Status
             </h2>
             
-            <div style={{ 
-                display: "flex", 
-                flexDirection: "column", 
-                gap: "24px", /* Tightened gap between zones */
-                backgroundColor: "var(--bg-offwhite)", 
-                padding: "24px", /* Compressed outer padding */
-                border: "1px solid var(--border-medium)", 
-                borderRadius: "4px" 
-              }}>
+            <div className="telemetry-dashboard">
 
                 {/* ZONE 1: Core / Work */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700, color: "var(--ink-black)", letterSpacing: "0.05em", borderBottom: "1px solid var(--ink-black)", paddingBottom: "4px" }}>
+                <div className="telemetry-zone">
+                  <span className="telemetry-zone-header">
                     // CORE_SPECS
                   </span>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <div className="telemetry-zone-content">
                     <StatBlock label="Base_Loc" value="Southport, UK"/>
                     <StatBlock label="Education" value="LJMU [Comp Sci]"/>
-                    <StatBlock label="First_Year_Result" value="First Class"/>
+                    <StatBlock label="Current_Avg" value="79% [First-Class]"/>
                     <StatBlock label="Status" value="Open to Placement"/>
                   </div>
                 </div>
 
                 {/* ZONE 2: Tech Stack (Languages & Infrastructure) */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <div className="telemetry-zone">
                   
-                  {/* Inline Header & Legend (Saves vertical space and reads top-down) */}
-                  <div style={{ 
-                    display: "flex", 
-                    justifyContent: "space-between", 
-                    alignItems: "flex-end",
-                    borderBottom: "1px solid var(--ink-black)", 
-                    paddingBottom: "4px" 
-                  }}>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700, color: "var(--ink-black)", letterSpacing: "0.05em" }}>
+                  {/* Inline Header & UPGRADED Legend using DIVs to prevent span hydration issues */}
+                  <div className="telemetry-inline-header">
+                    <span className="telemetry-zone-header">
                       // TECH_STACK
                     </span>
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--ink-grey)", letterSpacing: "0.05em" }}>
-                      ●● COMFORTABLE  |  ●○ FAMILIAR
-                    </span>
+                    <div className="telemetry-legend">
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span className="telemetry-legend-dot">●●</span> 
+                        <span className="telemetry-legend-text">COMFORTABLE</span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <span className="telemetry-legend-dot">●○</span> 
+                        <span className="telemetry-legend-text">FAMILIAR</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <div className="telemetry-subgroups">
                     {/* Sub-Group: Languages */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--ink-grey)", textTransform: "uppercase", marginBottom: "2px" }}>[ Languages ]</span>
+                    <div className="telemetry-subgroup">
+                      <span className="telemetry-subgroup-title">[ Languages ]</span>
                       <SkillMeter comfortable={true} skill="Python"/>
-                      <SkillMeter comfortable={true} skill="Java"/>
+                      <SkillMeter comfortable={true} skill="HTML / CSS"/>                     
                       <SkillMeter comfortable={true} skill="JavaScript"/>
-                      <SkillMeter comfortable={true} skill="HTML / CSS"/>
+                      <SkillMeter comfortable={false} skill="Java"/>
                       <SkillMeter comfortable={false} skill="SQL"/>
                     </div>
 
                     {/* Sub-Group: Tools & Infra */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--ink-grey)", textTransform: "uppercase", marginBottom: "2px" }}>[ Infrastructure & Tools ]</span>
-                      <SkillMeter comfortable={true} skill="AI LLM APIs"/>
+                    <div className="telemetry-subgroup">
+                      <span className="telemetry-subgroup-title">[ Infrastructure & Tools ]</span>
+                      <SkillMeter comfortable={true} skill="RESTful APIs"/>                      
                       <SkillMeter comfortable={false} skill="Flask"/>
                       <SkillMeter comfortable={false} skill="React / Next.js"/>
                       <SkillMeter comfortable={false} skill="Docker"/>
                       <SkillMeter comfortable={false} skill="Linux"/>
-                      <SkillMeter comfortable={false} skill="Cloudflare Tunnels"/>
-                      <SkillMeter comfortable={false} skill="Twilio API"/>
+                      <SkillMeter comfortable={false} skill="Networking / Selfhosting"/>
                     </div>
                   </div>
                 </div>
