@@ -71,6 +71,66 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
   );
 }
 
+// --- TELEMETRY: BASIC STAT BLOCK ---
+function StatBlock({ label, value }: { label: string, value: string }) {
+  return (
+    <div style={{ 
+      display: "flex", 
+      justifyContent: "space-between", 
+      borderBottom: "1px dashed var(--border-medium)", 
+      paddingBottom: "8px",
+      alignItems: "flex-end",
+      gap: "16px"
+    }}>
+      <span style={{ 
+        fontFamily: "var(--font-mono)", 
+        fontSize: "11px", 
+        color: "var(--ink-grey)",
+        textTransform: "uppercase",
+        letterSpacing: "0.05em",
+        flexShrink: 0
+      }}>{label}</span>
+      <span style={{ 
+        fontFamily: "var(--font-mono)", 
+        fontSize: "13px", 
+        color: "var(--ink-black)",
+        fontWeight: 600,
+        textAlign: "right"
+      }}>{value}</span>
+    </div>
+  );
+}
+
+// --- TELEMETRY: REFINED CIRCULAR SYSTEM METERS ---
+function SkillMeter({ skill, comfortable }: { skill: string, comfortable: boolean }) {
+  return (
+    <div style={{ 
+      display: "flex", 
+      justifyContent: "space-between", 
+      alignItems: "center",
+      marginBottom: "8px",
+      gap: "16px"
+    }}>
+      <span style={{ 
+        fontFamily: "var(--font-mono)", 
+        fontSize: "11px", 
+        color: "var(--ink-charcoal)",
+        textTransform: "uppercase",
+        letterSpacing: "0.05em",
+        flexShrink: 0
+      }}>{skill}</span>
+      <span style={{ 
+        fontFamily: "var(--font-mono)", 
+        fontSize: "11px", 
+        color: "var(--ink-black)",
+        letterSpacing: "4px"
+      }}>
+        {comfortable ? "● ●" : "● ○"}
+      </span>
+    </div>
+  );
+}
+
 // --- THE EXPANDABLE TIMELINE NODE COMPONENT ---
 function TimelineNode({ 
   date, 
@@ -126,8 +186,6 @@ function TimelineNode({
 
 // --- MAIN PAGE LAYOUT ---
 export default function AboutPage() {
-  // Tracks which timeline node is currently open. 
-  // Null means all are closed.
   const [openLogId, setOpenLogId] = useState<string | null>(null);
 
   return (
@@ -135,7 +193,7 @@ export default function AboutPage() {
       
       {/* MINIMAL TOP BAR */}
       <div className="top-nav-bar">
-        <Link href="/" className="home-badge">DB</Link>
+        <Link className="home-badge" href="/">DB</Link>
         <div className="nav-breadcrumb">
           <span style={{ color: "#aaaaaa" }}>/</span>
           <span style={{ color: "var(--ink-black)", fontWeight: 600 }}>About Me</span>
@@ -151,7 +209,7 @@ export default function AboutPage() {
           <div className="markdown-body" style={{ flex: "1 1 350px" }}>
             <h1>About Me.</h1>
             <p>
-              I am a Computer Science student at Liverpool John Moores University, based in Southport. I specialize in building practical, project-based software and managing self-hosted server infrastructure. 
+              I am a Computer Science student at Liverpool John Moores University, based in Southport. I specialize in building practical, project-based software and managing self-hosted server infrastructure.
             </p>
             <p>
               When I am not writing React or Next.js, I spend my time configuring Docker containers and experimenting with ZimaOS on my personal Lenovo ThinkCentre homelab. I believe the best way to learn system architecture is to physically build and break it yourself. I prioritize efficient, frugal tech solutions—like refurbishing corporate hardware—over buying into unneeded commercial hype.
@@ -167,10 +225,10 @@ export default function AboutPage() {
               Indexed Assets // Hobbies
             </h2>
             <div className="hobby-grid">
-              <HobbyImage src="/images/hobbies/homelab.jpg" alt="Lenovo ThinkCentre Homelab" caption="IMG_01 // ZIMA_OS_THINKCENTRE" />
-              <HobbyImage src="/images/hobbies/cs2.jpg" alt="CS2 Gameplay" caption="IMG_02 // FACEIT_QUEUE" />
-              <HobbyImage src="/images/hobbies/boxing.jpg" alt="Boxing Match" caption="IMG_03 // SEC315_DUBOIS_WARDLEY" />
-              <HobbyImage src="/images/hobbies/lecture.jpg" alt="Public Lecture" caption="IMG_04 // TUNG_AUDITORIUM" />
+              <HobbyImage alt="Lenovo ThinkCentre Homelab" caption="IMG_01 // ZIMA_OS_THINKCENTRE" src="/images/hobbies/homelab.jpg"/>
+              <HobbyImage alt="CS2 Gameplay" caption="IMG_02 // FACEIT_QUEUE" src="/images/hobbies/cs2.jpg"/>
+              <HobbyImage alt="Boxing Match" caption="IMG_03 // SEC315_DUBOIS_WARDLEY" src="/images/hobbies/boxing.jpg"/>
+              <HobbyImage alt="Public Lecture" caption="IMG_04 // TUNG_AUDITORIUM" src="/images/hobbies/lecture.jpg"/>
             </div>
           </div>
         </div>
@@ -178,25 +236,106 @@ export default function AboutPage() {
         {/* STRUCTURAL DIVIDER */}
         <div style={{ borderBottom: "1px solid var(--border-light)", marginBottom: "80px" }}></div>
 
-        {/* BOTTOM ROW: The Interactive Timeline */}
-        <div style={{ maxWidth: "680px", margin: "0 auto" }}>
-          <h2 className="section-heading-terminal" style={{ fontSize: "16px", marginBottom: "40px" }}>
-            System Log // Trajectory
-          </h2>
+        {/* BOTTOM ROW: Timeline & Telemetry */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "64px" }}>
+          
+          {/* LEFT: The Interactive Timeline */}
+          <div style={{ flex: "1.5 1 500px" }}>
+            <h2 className="section-heading-terminal" style={{ fontSize: "16px", marginBottom: "40px" }}>
+              System Log // Trajectory
+            </h2>
 
-          <div className="timeline-track">
-            {SYSTEM_LOGS.map((log) => (
-              <TimelineNode 
-                key={log.id}
-                date={log.date}
-                title={log.title}
-                description={log.description}
-                isActive={log.id === "log_08"} // Highlights the active placement search
-                isExpanded={openLogId === log.id}
-                onToggle={() => setOpenLogId(openLogId === log.id ? null : log.id)}
-              />
-            ))}
+            <div className="timeline-track">
+              {SYSTEM_LOGS.map((log) => (
+                <TimelineNode 
+                  key={log.id}
+                  date={log.date}
+                  title={log.title}
+                  description={log.description}
+                  isActive={log.id === "log_08"} 
+                  isExpanded={openLogId === log.id}
+                  onToggle={() => setOpenLogId(openLogId === log.id ? null : log.id)}
+                />
+              ))}
+            </div>
           </div>
+
+          {/* RIGHT: Live Telemetry Dashboard */}
+          <div style={{ flex: "1 1 350px" }}>
+            <h2 className="section-heading-terminal" style={{ fontSize: "16px", marginBottom: "40px" }}>
+              Live Telemetry // Status
+            </h2>
+            
+            <div style={{ 
+                display: "flex", 
+                flexDirection: "column", 
+                gap: "24px", /* Tightened gap between zones */
+                backgroundColor: "var(--bg-offwhite)", 
+                padding: "24px", /* Compressed outer padding */
+                border: "1px solid var(--border-medium)", 
+                borderRadius: "4px" 
+              }}>
+
+                {/* ZONE 1: Core / Work */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700, color: "var(--ink-black)", letterSpacing: "0.05em", borderBottom: "1px solid var(--ink-black)", paddingBottom: "4px" }}>
+                    // CORE_SPECS
+                  </span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <StatBlock label="Base_Loc" value="Southport, UK"/>
+                    <StatBlock label="Education" value="LJMU [Comp Sci]"/>
+                    <StatBlock label="First_Year_Result" value="First Class"/>
+                    <StatBlock label="Status" value="Open to Placement"/>
+                  </div>
+                </div>
+
+                {/* ZONE 2: Tech Stack (Languages & Infrastructure) */}
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  
+                  {/* Inline Header & Legend (Saves vertical space and reads top-down) */}
+                  <div style={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    alignItems: "flex-end",
+                    borderBottom: "1px solid var(--ink-black)", 
+                    paddingBottom: "4px" 
+                  }}>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 700, color: "var(--ink-black)", letterSpacing: "0.05em" }}>
+                      // TECH_STACK
+                    </span>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--ink-grey)", letterSpacing: "0.05em" }}>
+                      ●● COMFORTABLE  |  ●○ FAMILIAR
+                    </span>
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                    {/* Sub-Group: Languages */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--ink-grey)", textTransform: "uppercase", marginBottom: "2px" }}>[ Languages ]</span>
+                      <SkillMeter comfortable={true} skill="Python"/>
+                      <SkillMeter comfortable={true} skill="Java"/>
+                      <SkillMeter comfortable={true} skill="JavaScript"/>
+                      <SkillMeter comfortable={true} skill="HTML / CSS"/>
+                      <SkillMeter comfortable={false} skill="SQL"/>
+                    </div>
+
+                    {/* Sub-Group: Tools & Infra */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", color: "var(--ink-grey)", textTransform: "uppercase", marginBottom: "2px" }}>[ Infrastructure & Tools ]</span>
+                      <SkillMeter comfortable={true} skill="AI LLM APIs"/>
+                      <SkillMeter comfortable={false} skill="Flask"/>
+                      <SkillMeter comfortable={false} skill="React / Next.js"/>
+                      <SkillMeter comfortable={false} skill="Docker"/>
+                      <SkillMeter comfortable={false} skill="Linux"/>
+                      <SkillMeter comfortable={false} skill="Cloudflare Tunnels"/>
+                      <SkillMeter comfortable={false} skill="Twilio API"/>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+
         </div>
 
       </div>
