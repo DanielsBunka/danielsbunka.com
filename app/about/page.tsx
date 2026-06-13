@@ -3,71 +3,82 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { SYSTEM_LOGS, CORE_SPECS, LANGUAGE_STACK, INFRA_STACK } from "./data";
 
-// --- THE TIMELINE DATA ---
-const SYSTEM_LOGS = [
-  {
-    id: "log_01",
-    date: "2019",
-    title: "Introduction to Coding: GCSE Computer Science",
-    description: "Wrote my first lines of code. Formally introduced to core programming concepts, algorithm design, and control structures using Python."
-  },
-  {
-    id: "log_02",
-    date: "2022",
-    title: "Further Education: Computer Science",
-    description: "Deepened my theoretical understanding of computing systems during college and transitioned into object-oriented programming paradigms using Visual Basic."
-  },
-  {
-    id: "log_03",
-    date: "2025.09",
-    title: "Enrollment: BSc Computer Science, LJMU",
-    description: "Successfully enrolled and began my Computer Science degree, establishing a university-level foundation in data modeling, and full-stack web development."
-  },
-  {
-    id: "log_04",
-    date: "2025.11",
-    title: "Deployment: SOP Arrival Automation (SMS)",
-    description: "Engineered a Python/Flask utility utilizing the Realtime Trains API to automatically ping my father via SMS with accurate arrival times for my commute into Southport (SOP)."
-  },
-  {
-    id: "log_05",
-    date: "2026.02",
-    title: "Shipping: Roast My Face Web App",
-    description: "Developed and deployed a full-stack AI web application. Overcame specific CSS routing and API integration hurdles, pushing the final build to a public GitHub repository."
-  },
-  {
-    id: "log_06",
-    date: "2026.05",
-    title: "Completion: First Year Foundation",
-    description: "Concluded my first year of university, achieving a high First-Class average (~79%) across all technical modules."
-  },
-  {
-    id: "log_07",
-    date: "2026.05",
-    title: "Competition: BCS Smart City Hackathon",
-    description: "Participated in a grueling two-day collaborative coding sprint focused on Smart City Transportation, immediately after finishing my first-year exams."
-  },
-  {
-    id: "log_08",
-    date: "ACTIVE",
-    title: "Placement Search: 2026/2027 Cycle",
-    description: "Actively exploring and securing an industrial placement year. Targeting roles that offer hybrid or remote flexibility to contribute directly to production-level software engineering environments."
-  }
-];
-
-// --- THE HOBBY IMAGE COMPONENT ---
+// --- THE HOBBY IMAGE COMPONENT (CLEAN LIGHTBOX) ---
 function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="hobby-card">
-      <div className="hobby-image-frame">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={alt} />
+    <>
+      {/* The base card */}
+      <div 
+        className="hobby-card" 
+        onClick={() => setIsOpen(true)} 
+        style={{ cursor: "pointer" }}
+        title="Click to expand"
+      >
+        <div className="hobby-image-frame">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src={src} 
+            alt={alt} 
+            style={{ filter: "none", WebkitFilter: "none" }} 
+          />
+        </div>
+        <div className="hobby-caption">
+          {caption}
+        </div>
       </div>
-      <div className="hobby-caption">
-        {caption}
-      </div>
-    </div>
+
+      {/* The full-screen overlay (Lightbox) */}
+      {isOpen && (
+        <div 
+          onClick={() => setIsOpen(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "24px",
+            cursor: "zoom-out" 
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src={src} 
+            alt={alt} 
+            style={{ 
+              maxWidth: "100%", 
+              maxHeight: "80vh", 
+              objectFit: "contain", 
+              border: "1px solid #333",
+              boxShadow: "0 0 20px rgba(0,0,0,0.5)",
+              filter: "none",
+              WebkitFilter: "none"
+            }} 
+          />
+          <div style={{
+            color: "#ffffff",
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
+            marginTop: "16px",
+            textAlign: "center",
+            lineHeight: "1.5"
+          }}>
+            {caption} <br/>
+            <span style={{ opacity: 0.5 }}>[ TAP ANYWHERE TO CLOSE ]</span>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -93,27 +104,28 @@ function SkillMeter({ skill, comfortable }: { skill: string, comfortable: boolea
   );
 }
 
-// --- THE EXPANDABLE TIMELINE NODE COMPONENT ---
+// --- THE EXPANDABLE TIMELINE NODE COMPONENT (CLEAN) ---
 function TimelineNode({ 
   date, 
   title, 
   description, 
   isActive = false, 
   isExpanded, 
-  onToggle 
+  onToggle,
+  link 
 }: { 
   date: string, 
   title: string, 
   description: string, 
   isActive?: boolean, 
   isExpanded: boolean, 
-  onToggle: () => void 
+  onToggle: () => void,
+  link?: string 
 }) {
   return (
     <div className="timeline-node-wrapper">
       <div className={`timeline-marker ${isActive ? "active" : ""}`} />
       
-      {/* Upgraded from <button> to a valid, clickable <div> to prevent strict HTML parsing errors */}
       <div 
         onClick={onToggle}
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
@@ -142,7 +154,39 @@ function TimelineNode({
 
       <div className={`timeline-content-wrapper ${isExpanded ? "expanded" : ""}`}>
         <div className="timeline-content">
-          {description}
+          <p style={{ margin: "0" }}>{description}</p>
+          
+          {/* If the link exists, render the terminal button */}
+          {link && (
+            <Link 
+              href={link} 
+              style={{ 
+                fontFamily: "var(--font-mono)", 
+                fontSize: "11px", 
+                fontWeight: 700, 
+                color: "#ffffff",
+                backgroundColor: "#111111",
+                padding: "6px 12px",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                marginTop: "16px",
+                border: "1px solid #111111",
+                transition: "all 0.15s ease-in-out"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "#111111";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#111111";
+                e.currentTarget.style.color = "#ffffff";
+              }}
+            >
+              [ RUN: VIEW_PROJECT ] ↗
+            </Link>
+          )}
         </div>
       </div>
     </div>
@@ -217,6 +261,7 @@ export default function AboutPage() {
                   date={log.date}
                   title={log.title}
                   description={log.description}
+                  link={log.link}
                   isActive={log.id === "log_08"} 
                   isExpanded={openLogId === log.id}
                   onToggle={() => setOpenLogId(openLogId === log.id ? null : log.id)}
@@ -239,17 +284,16 @@ export default function AboutPage() {
                     // CORE_SPECS
                   </span>
                   <div className="telemetry-zone-content">
-                    <StatBlock label="Base_Loc" value="Southport, UK"/>
-                    <StatBlock label="Education" value="LJMU [Comp Sci]"/>
-                    <StatBlock label="Current_Avg" value="79% [First-Class]"/>
-                    <StatBlock label="Status" value="Open to Placement"/>
+                    {CORE_SPECS.map((spec) => (
+                      <StatBlock key={spec.label} label={spec.label} value={spec.value} />
+                    ))}
                   </div>
                 </div>
 
                 {/* ZONE 2: Tech Stack (Languages & Infrastructure) */}
                 <div className="telemetry-zone">
                   
-                  {/* Inline Header & UPGRADED Legend using DIVs to prevent span hydration issues */}
+                  {/* Inline Header & Legend */}
                   <div className="telemetry-inline-header">
                     <span className="telemetry-zone-header">
                       // TECH_STACK
@@ -270,22 +314,17 @@ export default function AboutPage() {
                     {/* Sub-Group: Languages */}
                     <div className="telemetry-subgroup">
                       <span className="telemetry-subgroup-title">[ Languages ]</span>
-                      <SkillMeter comfortable={true} skill="Python"/>
-                      <SkillMeter comfortable={true} skill="HTML / CSS"/>                     
-                      <SkillMeter comfortable={true} skill="JavaScript"/>
-                      <SkillMeter comfortable={false} skill="Java"/>
-                      <SkillMeter comfortable={false} skill="SQL"/>
+                      {LANGUAGE_STACK.map((lang) => (
+                        <SkillMeter key={lang.skill} skill={lang.skill} comfortable={lang.comfortable} />
+                      ))}
                     </div>
 
                     {/* Sub-Group: Tools & Infra */}
                     <div className="telemetry-subgroup">
                       <span className="telemetry-subgroup-title">[ Infrastructure & Tools ]</span>
-                      <SkillMeter comfortable={true} skill="RESTful APIs"/>                      
-                      <SkillMeter comfortable={false} skill="Flask"/>
-                      <SkillMeter comfortable={false} skill="React / Next.js"/>
-                      <SkillMeter comfortable={false} skill="Docker"/>
-                      <SkillMeter comfortable={false} skill="Linux"/>
-                      <SkillMeter comfortable={false} skill="Networking / Selfhosting"/>
+                      {INFRA_STACK.map((infra) => (
+                        <SkillMeter key={infra.skill} skill={infra.skill} comfortable={infra.comfortable} />
+                      ))}
                     </div>
                   </div>
                 </div>
