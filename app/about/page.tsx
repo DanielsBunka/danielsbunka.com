@@ -168,7 +168,7 @@ function TimelineNode({
           {/* FIXED: Removed inline styles, pointing to responsive CSS class */}
           {link && (
             <Link href={link} className="terminal-link-btn">
-              [ RUN: VIEW_PROJECT ] ↗
+              [View Project Article]
             </Link>
           )}
         </div>
@@ -218,10 +218,10 @@ export default function AboutPage() {
               Indexed Assets // Hobbies
             </h2>
             <div className="hobby-grid">
-              <HobbyImage alt="Lenovo ThinkCentre Homelab" caption="IMG_01 // ZIMA_OS_THINKCENTRE" src="/images/hobbies/homelab.jpg"/>
-              <HobbyImage alt="CS2 Gameplay" caption="IMG_02 // FACEIT_QUEUE" src="/images/hobbies/cs2.jpg"/>
-              <HobbyImage alt="Boxing Match" caption="IMG_03 // SEC315_DUBOIS_WARDLEY" src="/images/hobbies/boxing.jpg"/>
-              <HobbyImage alt="Public Lecture" caption="IMG_04 // TUNG_AUDITORIUM" src="/images/hobbies/lecture.jpg"/>
+              <HobbyImage alt="Lenovo ThinkCentre Homelab" caption="IMG_01 // Hackathon" src="/images/hobbies/homelab.jpg"/>
+              <HobbyImage alt="CS2 Gameplay" caption="IMG_02 // CS Tournament Image" src="/images/hobbies/cs2.jpg"/>
+              <HobbyImage alt="Boxing Match" caption="IMG_03 // Usyk Fight Pic" src="/images/hobbies/boxing.jpg"/>
+              <HobbyImage alt="Public Lecture" caption="IMG_04 // ???" src="/images/hobbies/lecture.jpg"/>
             </div>
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function AboutPage() {
                   title={log.title}
                   description={log.description}
                   link={log.link}
-                  isActive={log.id === "log_08"} 
+                  isActive={log.id === "log_09"} 
                   isExpanded={openLogId === log.id}
                   onToggle={() => setOpenLogId(openLogId === log.id ? null : log.id)}
                 />
@@ -265,7 +265,7 @@ export default function AboutPage() {
                 {/* ZONE 1: Core / Work */}
                 <div className="telemetry-zone">
                   <span className="telemetry-zone-header">
-                    // CORE_SPECS
+                    CORE_SPECS
                   </span>
                   <div className="telemetry-zone-content">
                     {CORE_SPECS.map((spec) => (
@@ -280,7 +280,7 @@ export default function AboutPage() {
                   {/* Inline Header & Legend */}
                   <div className="telemetry-inline-header">
                     <span className="telemetry-zone-header">
-                      // TECH_STACK
+                      TECH_STACK
                     </span>
                     <div className="telemetry-legend">
                       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>

@@ -724,6 +724,7 @@ body {
   }
 }
 
+
 /* --- Telemetry Dashboard --- */
 .telemetry-dashboard {
   display: flex;
@@ -758,10 +759,13 @@ body {
   gap: 12px;
 }
 
+/* 1. Allows the legend to drop down on tiny screens */
 .telemetry-inline-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center; 
+  flex-wrap: wrap; /* CRITICAL */
+  gap: 12px; 
   border-bottom: 1px solid var(--ink-black);
   padding-bottom: 8px;
 }
@@ -834,10 +838,11 @@ body {
   text-align: right;
 }
 
+/* 2. Protects your long language/skill names */
 .skill-meter {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; /* CRITICAL: keeps dots at the top if text wraps */
   margin: 0 0 8px 0;
   gap: 16px;
 }
@@ -848,14 +853,17 @@ body {
   color: var(--ink-charcoal);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  flex-shrink: 0;
+  word-break: break-word; /* CRITICAL: lets long names wrap safely */
 }
 
+/* 3. Protects your circular dots from getting squished */
 .skill-value {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--ink-black);
   letter-spacing: 4px;
+  flex-shrink: 0; /* CRITICAL: titanium wall for the dots */
+  white-space: nowrap; 
 }
 
 /* =========================================

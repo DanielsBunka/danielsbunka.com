@@ -3,13 +3,13 @@
 export const SYSTEM_LOGS = [
     {
         id: "log_01",
-        date: "2019 - 2022",
+        date: "2019.09",
         title: "Introduction to Coding: GCSE Computer Science",
         description: "This was the start of my coding and Computer Science journey, I picked up my first programming Language (Python) and developed the foundations of Computer Science."
     },
     {
         id: "log_02",
-        date: "2022 - 2024",
+        date: "2022.09",
         title: "Further Education: A Level Computer Science",
         description: "Explored Computer Science concepts such as data structures, networking and cyber security whilst picking up my second programming language (Visual Basic)."
     },
@@ -17,7 +17,7 @@ export const SYSTEM_LOGS = [
         id: "log_03",
         date: "2025.09",
         title: "Enrollment: BSc Computer Science, LJMU",
-        description: "Started the journey towards getting a Computer Science Degree, and massively accelerating in experience and knowledge as well as deepening my passion for Computer Science and programming in general"
+        description: "Started the journey towards getting a Computer Science Degree, and massively accelerating in experience and knowledge as well as deepening my passion for Computer Science and programming in general."
     },
     {
         id: "log_04",
@@ -30,25 +30,32 @@ export const SYSTEM_LOGS = [
         id: "log_05",
         date: "2026.02",
         title: "Personal Project: Roast My Face Web App",
-        description: "Developed and deployed a full-stack AI web application. Overcame specific CSS routing and API integration hurdles, pushing the final build to a public GitHub repository."
+        description: "Created and published a full-stack AI web application that turns image input into humourous roasts. This project helped me explore how to secure API keys from static webpages and utilizing serverless architecture.",
+        link: "/projects/roast-my-face"
     },
     {
         id: "log_06",
         date: "2026.05",
-        title: "Completion: First Year Foundation",
-        description: "Concluded my first year of university, achieving a high First-Class average across all technical modules."
+        title: "Completion: First Year At LJMU",
+        description: "Finished my first year at university with a First Class average (79%) and taking one more step towards a journey of developing my skills and improving myself as a Computer Scientist."
     },
     {
         id: "log_07",
         date: "2026.05",
-        title: "Competition: BCS Smart City Hackathon",
-        description: "Participated in a grueling two-day collaborative coding sprint focused on Smart City Transportation, immediately after finishing my first-year exams."
+        title: "Competition: 4th Place at Merseyside Hackathon 2026 (BCS)",
+        description: "Took part in an intense two-day stretch collaborating with fellow Computer Science students to create solutions within city infrastructure and transit whilst taking home 4th place"
     },
     {
         id: "log_08",
+        date: "2026.06",
+        title: "Launching: danielsbunka.com",
+        description: "Launching the current website that you are on to showcase my skills and portfolio to potential employers or anyone potentially interested in my Computer Science skills."
+    },
+    {
+        id: "log_09",
         date: "ACTIVE",
-        title: "Placement Search: 2026/2027 Cycle",
-        description: "Actively exploring and securing an industrial placement year. Targeting roles that offer hybrid or remote flexibility to contribute directly to production-level software engineering environments."
+        title: "Placement Search: 2027/2028 Cycle",
+        description: "Actively looking for an industrial placement year to start by September 2027, to bring my skills to a workplace environment as well as develop as a software engineer."
     }
 ];
 
