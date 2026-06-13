@@ -678,6 +678,52 @@ body {
   line-height: 1.6;
 }
 
+/* TERMINAL LINK BUTTON */
+.terminal-link-btn {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #111111;
+  padding: 6px 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  border: 1px solid #111111;
+  transition: all 0.15s ease-in-out;
+  position: relative;
+  z-index: 20;
+  -webkit-text-size-adjust: none; /* Stops mobile browsers from artificially blowing up the text */
+}
+
+/* Hover effects only apply to devices with a mouse (stops sticky hover on mobile taps) */
+@media (hover: hover) {
+  .terminal-link-btn:hover {
+    background-color: transparent;
+    color: #111111;
+  }
+}
+
+/* Mobile scaling */
+@media (max-width: 768px) {
+  .terminal-link-btn {
+    font-size: 10px;
+    padding: 4px 8px; /* Slimmer padding */
+    margin-top: 12px; /* Tighter gap */
+    gap: 6px;
+  }
+}
+
+/* MOBILE REORDERING */
+@media (max-width: 768px) {
+  .about-split-row-bottom {
+    display: flex;
+    flex-direction: column-reverse; /* Flips the order of columns */
+  }
+}
+
 /* --- Telemetry Dashboard --- */
 .telemetry-dashboard {
   display: flex;

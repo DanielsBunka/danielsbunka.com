@@ -104,7 +104,7 @@ function SkillMeter({ skill, comfortable }: { skill: string, comfortable: boolea
   );
 }
 
-// --- THE EXPANDABLE TIMELINE NODE COMPONENT (CLEAN) ---
+// --- THE EXPANDABLE TIMELINE NODE COMPONENT (MOBILE BUTTON OPTIMIZED) ---
 function TimelineNode({ 
   date, 
   title, 
@@ -122,32 +122,41 @@ function TimelineNode({
   onToggle: () => void,
   link?: string 
 }) {
+  
+  const handleToggle = (e: React.SyntheticEvent) => {
+    e.preventDefault(); 
+    onToggle();
+  };
+
   return (
     <div className="timeline-node-wrapper">
       <div className={`timeline-marker ${isActive ? "active" : ""}`} />
       
       <div 
-        onClick={onToggle}
+        onClick={handleToggle}
+        onTouchEnd={handleToggle} 
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle();
-          }
-        }}
+        style={{ cursor: "pointer", position: "relative", zIndex: 10 }}
       >
-        <div>
-          <div className={`timeline-date ${isActive ? "active" : ""}`}>
+        <div style={{ 
+          display: "flex", 
+          flexDirection: "column", 
+          alignItems: "flex-start", 
+          gap: "4px",
+          pointerEvents: "none",
+          maxWidth: "75%" 
+        }}>
+          <div className={`timeline-date ${isActive ? "active" : ""}`} style={{ marginBottom: "2px" }}>
             [ {date} ]
           </div>
-          <div className="timeline-title">
+          <div className="timeline-title" style={{ whiteSpace: "normal", lineHeight: "1.3" }}>
             {title}
           </div>
         </div>
 
-        <div className="timeline-action">
+        <div className="timeline-action" style={{ pointerEvents: "none", flexShrink: 0 }}>
           {isExpanded ? "[ - ] CLOSE" : "[ + ] EXPAND"}
         </div>
       </div>
@@ -156,34 +165,9 @@ function TimelineNode({
         <div className="timeline-content">
           <p style={{ margin: "0" }}>{description}</p>
           
-          {/* If the link exists, render the terminal button */}
+          {/* FIXED: Removed inline styles, pointing to responsive CSS class */}
           {link && (
-            <Link 
-              href={link} 
-              style={{ 
-                fontFamily: "var(--font-mono)", 
-                fontSize: "11px", 
-                fontWeight: 700, 
-                color: "#ffffff",
-                backgroundColor: "#111111",
-                padding: "6px 12px",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                marginTop: "16px",
-                border: "1px solid #111111",
-                transition: "all 0.15s ease-in-out"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = "#111111";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#111111";
-                e.currentTarget.style.color = "#ffffff";
-              }}
-            >
+            <Link href={link} className="terminal-link-btn">
               [ RUN: VIEW_PROJECT ] ↗
             </Link>
           )}
