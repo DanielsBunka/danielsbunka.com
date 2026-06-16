@@ -42,8 +42,8 @@ export const SYSTEM_LOGS = [
     {
         id: "log_07",
         date: "2026.05",
-        title: "Competition: 4th Place at Merseyside Hackathon 2026 (BCS)",
-        description: "Took part in an intense two-day stretch collaborating with fellow Computer Science students to create solutions within city infrastructure and transit whilst taking home 4th place"
+        title: "Hackathon: BCS Merseyside 2026",
+        description: "Collaborated with fellow Computer Science students during a two-day hackathon to design, prototype and present a smart-city transport solution under time pressure."
     },
     {
         id: "log_08",
@@ -60,10 +60,10 @@ export const SYSTEM_LOGS = [
 ];
 
 export const CORE_SPECS = [
-    { label: "Base_Loc", value: "Southport, UK" },
+    { label: "Location", value: "North West - UK" },
     { label: "Education", value: "LJMU [Comp Sci]" },
-    { label: "Year_1_Result", value: "First Class" },
-    { label: "Status", value: "Open to Placement" }
+    { label: "Year 1 Result", value: "First Class" },
+    { label: "Status", value: "Searching for Placement" }
 ];
 
 export const LANGUAGE_STACK = [
@@ -78,7 +78,8 @@ export const LANGUAGE_STACK = [
 export const INFRA_STACK = [
     { skill: "RESTful APIs", comfortable: true },
     { skill: "Flask", comfortable: false },
-    { skill: "React / Next.js", comfortable: false },
+    { skill: "Next.js", comfortable: false },
+    { skill: "React", comfortable: false },
     { skill: "Docker", comfortable: false },
     { skill: "Linux", comfortable: false },
     { skill: "Networking / Selfhosting", comfortable: false }

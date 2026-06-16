@@ -528,7 +528,7 @@ body {
 
 .hobby-image-frame {
   border: 1px solid var(--ink-black);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   background-color: #f0f0f0;
   overflow: hidden;
   position: relative;
@@ -538,7 +538,6 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
   transition: filter 0.3s ease;
   display: block;
 }

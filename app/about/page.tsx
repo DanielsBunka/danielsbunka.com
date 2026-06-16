@@ -215,13 +215,13 @@ export default function AboutPage() {
           {/* RIGHT: Indexed Assets / Image Board */}
           <div className="about-col-hobbies">
             <h2 className="section-heading-terminal">
-              Indexed Assets // Hobbies
+              About Me // Memories
             </h2>
             <div className="hobby-grid">
-              <HobbyImage alt="Lenovo ThinkCentre Homelab" caption="IMG_01 // Hackathon" src="/images/hobbies/homelab.jpg"/>
-              <HobbyImage alt="CS2 Gameplay" caption="IMG_02 // CS Tournament Image" src="/images/hobbies/cs2.jpg"/>
-              <HobbyImage alt="Boxing Match" caption="IMG_03 // Usyk Fight Pic" src="/images/hobbies/boxing.jpg"/>
-              <HobbyImage alt="Public Lecture" caption="IMG_04 // ???" src="/images/hobbies/lecture.jpg"/>
+              <HobbyImage alt="Counter Strike Tournament Image" caption="IMG_01 // Counter Strike Tournament Image" src="/images/hobbies/BlastLondon.jpg"/>
+              <HobbyImage alt="Usyk Boxing at Wembley" caption="IMG_02 // Usyk Boxing Match at Wembley" src="/images/hobbies/UsykBoxing.jpg"/>
+              <HobbyImage alt="Concert" caption="IMG_03 // Concert" src="/images/hobbies/concert.png"/>
+              <HobbyImage alt="Hackathon Group Photo" caption="IMG_04 // Hackathon" src="/images/hobbies/Hackathon.jpg"/>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function AboutPage() {
           {/* LEFT: The Interactive Timeline */}
           <div className="about-col-timeline">
             <h2 className="section-heading-terminal large">
-              System Log // Trajectory
+              About Me // Timeline
             </h2>
 
             <div className="timeline-track">
@@ -257,7 +257,7 @@ export default function AboutPage() {
           {/* RIGHT: Live Telemetry Dashboard */}
           <div className="about-col-telemetry">
             <h2 className="section-heading-terminal large">
-              Live Telemetry // Status
+              About Me // Info
             </h2>
             
             <div className="telemetry-dashboard">
