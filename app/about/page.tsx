@@ -12,18 +12,18 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
   return (
     <>
       {/* The base card */}
-      <div 
-        className="hobby-card" 
-        onClick={() => setIsOpen(true)} 
+      <div
+        className="hobby-card"
+        onClick={() => setIsOpen(true)}
         style={{ cursor: "pointer" }}
         title="Click to expand"
       >
         <div className="hobby-image-frame">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src={src} 
-            alt={alt} 
-            style={{ filter: "none", WebkitFilter: "none" }} 
+          <img
+            src={src}
+            alt={alt}
+            style={{ filter: "none", WebkitFilter: "none" }}
           />
         </div>
         <div className="hobby-caption">
@@ -33,7 +33,7 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
 
       {/* The full-screen overlay (Lightbox) */}
       {isOpen && (
-        <div 
+        <div
           onClick={() => setIsOpen(false)}
           style={{
             position: "fixed",
@@ -48,22 +48,22 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
             justifyContent: "center",
             alignItems: "center",
             padding: "24px",
-            cursor: "zoom-out" 
+            cursor: "zoom-out"
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src={src} 
-            alt={alt} 
-            style={{ 
-              maxWidth: "100%", 
-              maxHeight: "80vh", 
-              objectFit: "contain", 
+          <img
+            src={src}
+            alt={alt}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "80vh",
+              objectFit: "contain",
               border: "1px solid #333",
               boxShadow: "0 0 20px rgba(0,0,0,0.5)",
               filter: "none",
               WebkitFilter: "none"
-            }} 
+            }}
           />
           <div style={{
             color: "#ffffff",
@@ -73,7 +73,7 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
             textAlign: "center",
             lineHeight: "1.5"
           }}>
-            {caption} <br/>
+            {caption} <br />
             <span style={{ opacity: 0.5 }}>[ TAP ANYWHERE TO CLOSE ]</span>
           </div>
         </div>
@@ -105,48 +105,48 @@ function SkillMeter({ skill, comfortable }: { skill: string, comfortable: boolea
 }
 
 // --- THE EXPANDABLE TIMELINE NODE COMPONENT (MOBILE BUTTON OPTIMIZED) ---
-function TimelineNode({ 
-  date, 
-  title, 
-  description, 
-  isActive = false, 
-  isExpanded, 
+function TimelineNode({
+  date,
+  title,
+  description,
+  isActive = false,
+  isExpanded,
   onToggle,
-  link 
-}: { 
-  date: string, 
-  title: string, 
-  description: string, 
-  isActive?: boolean, 
-  isExpanded: boolean, 
+  link
+}: {
+  date: string,
+  title: string,
+  description: string,
+  isActive?: boolean,
+  isExpanded: boolean,
   onToggle: () => void,
-  link?: string 
+  link?: string
 }) {
-  
+
   const handleToggle = (e: React.SyntheticEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     onToggle();
   };
 
   return (
     <div className="timeline-node-wrapper">
       <div className={`timeline-marker ${isActive ? "active" : ""}`} />
-      
-      <div 
+
+      <div
         onClick={handleToggle}
-        onTouchEnd={handleToggle} 
+        onTouchEnd={handleToggle}
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
         role="button"
         tabIndex={0}
         style={{ cursor: "pointer", position: "relative", zIndex: 10 }}
       >
-        <div style={{ 
-          display: "flex", 
-          flexDirection: "column", 
-          alignItems: "flex-start", 
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
           gap: "4px",
           pointerEvents: "none",
-          maxWidth: "75%" 
+          maxWidth: "75%"
         }}>
           <div className={`timeline-date ${isActive ? "active" : ""}`} style={{ marginBottom: "2px" }}>
             [ {date} ]
@@ -164,7 +164,7 @@ function TimelineNode({
       <div className={`timeline-content-wrapper ${isExpanded ? "expanded" : ""}`}>
         <div className="timeline-content">
           <p style={{ margin: "0" }}>{description}</p>
-          
+
           {/* FIXED: Removed inline styles, pointing to responsive CSS class */}
           {link && (
             <Link href={link} className="terminal-link-btn">
@@ -183,7 +183,7 @@ export default function AboutPage() {
 
   return (
     <main className="about-main">
-      
+
       {/* MINIMAL TOP BAR */}
       <div className="top-nav-bar">
         <Link className="home-badge" href="/">DB</Link>
@@ -194,21 +194,21 @@ export default function AboutPage() {
       </div>
 
       <div className="about-container">
-        
+
         {/* TOP ROW: Split Layout */}
         <div className="about-split-row">
-          
+
           {/* LEFT: The Readme */}
           <div className="markdown-body about-col-readme">
             <h1>About Me.</h1>
             <p>
-              I am a Computer Science student at Liverpool John Moores University, based in Southport. I specialize in building practical, project-based software and managing self-hosted server infrastructure.
+              I am a Computer Science student at Liverpool John Moores University looking for a 2027/2028 placement. I have built this website to showcase my skills via my portfolio and to act as a central place to record my journey. I’ve created and published various personal projects as a way to improve my skills and become a better software engineer.
             </p>
             <p>
-              When I am not writing React or Next.js, I spend my time configuring Docker containers and experimenting with ZimaOS on my personal Lenovo ThinkCentre homelab. I believe the best way to learn system architecture is to physically build and break it yourself. I prioritize efficient, frugal tech solutions—like refurbishing corporate hardware—over buying into unneeded commercial hype.
+              I’ve used my projects to explore various different fields. An example of this has been my light-hearted full-stack ‘Roast My Face’ web app that integrates AI APIs to process an image of the user’s face and come up with a humorous response. I’ve also gone down a rabbit hole with networking by setting up my own homelab by upcycling a cheap mini PC from Ebay which led to me experimenting with reverse proxies and deploying self-hosted services and applications.
             </p>
             <p>
-              Outside of the terminal, I grind competitive queues on Faceit for Counter-Strike 2, follow professional combat sports, and keep an active eye on long-term index fund investments.
+              Outside of Computer Science, I’m really into Counter Strike and especially the esports side of it, and personally going to watch a tournament in person in London has been one of my favorite experiences. Another passion of mine is boxing, especially the heavyweight division and in particular I am a big fan of Usyk; seeing Usyk VS Dubois at Wembley Stadium was surreal.
             </p>
           </div>
 
@@ -218,10 +218,10 @@ export default function AboutPage() {
               About Me // Memories
             </h2>
             <div className="hobby-grid">
-              <HobbyImage alt="Counter Strike Tournament Image" caption="IMG_01 // Counter Strike Tournament Image" src="/images/hobbies/BlastLondon.jpg"/>
-              <HobbyImage alt="Usyk Boxing at Wembley" caption="IMG_02 // Usyk Boxing Match at Wembley" src="/images/hobbies/UsykBoxing.jpg"/>
-              <HobbyImage alt="Concert" caption="IMG_03 // Concert" src="/images/hobbies/concert.png"/>
-              <HobbyImage alt="Hackathon Group Photo" caption="IMG_04 // Hackathon" src="/images/hobbies/Hackathon.jpg"/>
+              <HobbyImage alt="Counter Strike Tournament Image" caption="IMG_01 // Counter Strike Tournament Image" src="/images/hobbies/BlastLondon.jpg" />
+              <HobbyImage alt="Usyk Boxing at Wembley" caption="IMG_02 // Usyk Boxing Match at Wembley" src="/images/hobbies/UsykBoxing.jpg" />
+              <HobbyImage alt="Concert" caption="IMG_03 // Concert" src="/images/hobbies/concert.png" />
+              <HobbyImage alt="Hackathon Group Photo" caption="IMG_04 // Hackathon" src="/images/hobbies/Hackathon.jpg" />
             </div>
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function AboutPage() {
 
         {/* BOTTOM ROW: Timeline & Telemetry */}
         <div className="about-split-row-bottom">
-          
+
           {/* LEFT: The Interactive Timeline */}
           <div className="about-col-timeline">
             <h2 className="section-heading-terminal large">
@@ -240,13 +240,13 @@ export default function AboutPage() {
 
             <div className="timeline-track">
               {SYSTEM_LOGS.map((log) => (
-                <TimelineNode 
+                <TimelineNode
                   key={log.id}
                   date={log.date}
                   title={log.title}
                   description={log.description}
                   link={log.link}
-                  isActive={log.id === "log_09"} 
+                  isActive={log.id === "log_09"}
                   isExpanded={openLogId === log.id}
                   onToggle={() => setOpenLogId(openLogId === log.id ? null : log.id)}
                 />
@@ -259,61 +259,61 @@ export default function AboutPage() {
             <h2 className="section-heading-terminal large">
               About Me // Info
             </h2>
-            
+
             <div className="telemetry-dashboard">
 
-                {/* ZONE 1: Core / Work */}
-                <div className="telemetry-zone">
+              {/* ZONE 1: Core / Work */}
+              <div className="telemetry-zone">
+                <span className="telemetry-zone-header">
+                  CORE_SPECS
+                </span>
+                <div className="telemetry-zone-content">
+                  {CORE_SPECS.map((spec) => (
+                    <StatBlock key={spec.label} label={spec.label} value={spec.value} />
+                  ))}
+                </div>
+              </div>
+
+              {/* ZONE 2: Tech Stack (Languages & Infrastructure) */}
+              <div className="telemetry-zone">
+
+                {/* Inline Header & Legend */}
+                <div className="telemetry-inline-header">
                   <span className="telemetry-zone-header">
-                    CORE_SPECS
+                    TECH_STACK
                   </span>
-                  <div className="telemetry-zone-content">
-                    {CORE_SPECS.map((spec) => (
-                      <StatBlock key={spec.label} label={spec.label} value={spec.value} />
+                  <div className="telemetry-legend">
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span className="telemetry-legend-dot">●●</span>
+                      <span className="telemetry-legend-text">COMFORTABLE</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <span className="telemetry-legend-dot">●○</span>
+                      <span className="telemetry-legend-text">FAMILIAR</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="telemetry-subgroups">
+                  {/* Sub-Group: Languages */}
+                  <div className="telemetry-subgroup">
+                    <span className="telemetry-subgroup-title">[ Languages ]</span>
+                    {LANGUAGE_STACK.map((lang) => (
+                      <SkillMeter key={lang.skill} skill={lang.skill} comfortable={lang.comfortable} />
+                    ))}
+                  </div>
+
+                  {/* Sub-Group: Tools & Infra */}
+                  <div className="telemetry-subgroup">
+                    <span className="telemetry-subgroup-title">[ Infrastructure & Tools ]</span>
+                    {INFRA_STACK.map((infra) => (
+                      <SkillMeter key={infra.skill} skill={infra.skill} comfortable={infra.comfortable} />
                     ))}
                   </div>
                 </div>
-
-                {/* ZONE 2: Tech Stack (Languages & Infrastructure) */}
-                <div className="telemetry-zone">
-                  
-                  {/* Inline Header & Legend */}
-                  <div className="telemetry-inline-header">
-                    <span className="telemetry-zone-header">
-                      TECH_STACK
-                    </span>
-                    <div className="telemetry-legend">
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <span className="telemetry-legend-dot">●●</span> 
-                        <span className="telemetry-legend-text">COMFORTABLE</span>
-                      </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <span className="telemetry-legend-dot">●○</span> 
-                        <span className="telemetry-legend-text">FAMILIAR</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="telemetry-subgroups">
-                    {/* Sub-Group: Languages */}
-                    <div className="telemetry-subgroup">
-                      <span className="telemetry-subgroup-title">[ Languages ]</span>
-                      {LANGUAGE_STACK.map((lang) => (
-                        <SkillMeter key={lang.skill} skill={lang.skill} comfortable={lang.comfortable} />
-                      ))}
-                    </div>
-
-                    {/* Sub-Group: Tools & Infra */}
-                    <div className="telemetry-subgroup">
-                      <span className="telemetry-subgroup-title">[ Infrastructure & Tools ]</span>
-                      {INFRA_STACK.map((infra) => (
-                        <SkillMeter key={infra.skill} skill={infra.skill} comfortable={infra.comfortable} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
               </div>
+
+            </div>
           </div>
 
         </div>
