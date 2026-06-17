@@ -33,7 +33,7 @@ export default async function ProjectArticlePage({ params }: Props) {
 
             <article className="article-container">
                 <header className="article-header">
-                    
+
                     <div className="article-meta">
                         <span className="project-date">{project.frontmatter.date}</span>
                         {project.frontmatter.tags.length > 0 && (
@@ -50,8 +50,8 @@ export default async function ProjectArticlePage({ params }: Props) {
 
                     {project.frontmatter.github && (
                         <div>
-                            <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="github-button" style={{ margin: 0 }}>
-                                GitHub Repo ↗
+                            <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="terminal-link-btn" style={{ margin: 0 }}>
+                                [ GitHub Repo ]
                             </a>
                         </div>
                     )}
