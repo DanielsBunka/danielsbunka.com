@@ -220,7 +220,7 @@ export default function AboutPage() {
             <div className="hobby-grid">
               <HobbyImage alt="Counter Strike Tournament Image" caption="IMG_01 // Counter Strike Tournament Image" src="/images/hobbies/BlastLondon.jpg" />
               <HobbyImage alt="Usyk Boxing at Wembley" caption="IMG_02 // Usyk Boxing Match at Wembley" src="/images/hobbies/UsykBoxing.jpg" />
-              <HobbyImage alt="Concert" caption="IMG_03 // Concert" src="/images/hobbies/concert.png" />
+              <HobbyImage alt="Sabaton Concert" caption="IMG_03 // Sabaton Concert (Metal)" src="/images/hobbies/concert.png" />
               <HobbyImage alt="Hackathon Group Photo" caption="IMG_04 // Hackathon" src="/images/hobbies/Hackathon.jpg" />
             </div>
           </div>

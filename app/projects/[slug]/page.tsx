@@ -51,7 +51,7 @@ export default async function ProjectArticlePage({ params }: Props) {
                     {project.frontmatter.github && (
                         <div>
                             <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="terminal-link-btn" style={{ margin: 0 }}>
-                                [ GitHub Repo ]
+                                [GitHub Repo]
                             </a>
                         </div>
                     )}
