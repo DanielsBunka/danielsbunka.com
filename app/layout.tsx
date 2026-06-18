@@ -3,7 +3,7 @@
 // Allows for browser meta data
 import type { Metadata } from "next";
 // Imports Fonts from fonts.google.com
-import { Inter, JetBrains_Mono } from "next/font/google";
+import {JetBrains_Mono} from "next/font/google";
 // Imports my CSS file
 import "./globals.css";
 
@@ -23,9 +23,9 @@ export default function RootLayout({
   return (
     // Injects the variables into the HTML tag so globals.css can see them
     <html lang="en" className={`${jetbrainsMono.variable}`}>
-      <body style={{ margin: 0 }}>
-        {children}
-      </body>
+        <body className="antialiased">
+          {children}
+        </body>
     </html>
   );
 }

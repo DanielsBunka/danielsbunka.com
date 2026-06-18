@@ -7,14 +7,14 @@ export default function ProjectsPage() {
   const projects = getAllProjects();
 
   return (
-    <main style={{ backgroundColor: "var(--bg-page)", minHeight: "100vh" }}>
+    <main className="projects-main">
 
       {/* ── MINIMAL TOP BAR ── */}
       <div className="top-nav-bar">
         <Link href="/" className="home-badge">DB</Link>
         <div className="nav-breadcrumb">
-          <span style={{ color: "#aaaaaa" }}>/</span>
-          <span style={{ color: "var(--ink-black)", fontWeight: 600 }}>Projects</span>
+          <span className="nav-divider">/</span>
+          <span className="nav-current">Projects</span>
         </div>
       </div>
 

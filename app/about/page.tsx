@@ -11,70 +11,27 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
 
   return (
     <>
-      {/* The base card */}
       <div
         className="hobby-card"
         onClick={() => setIsOpen(true)}
-        style={{ cursor: "pointer" }}
         title="Click to expand"
       >
         <div className="hobby-image-frame">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            style={{ filter: "none", WebkitFilter: "none" }}
-          />
+          <img src={src} alt={alt} />
         </div>
         <div className="hobby-caption">
           {caption}
         </div>
       </div>
 
-      {/* The full-screen overlay (Lightbox) */}
       {isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
-            zIndex: 9999,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "24px",
-            cursor: "zoom-out"
-          }}
-        >
+        <div className="lightbox-overlay" onClick={() => setIsOpen(false)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={alt}
-            style={{
-              maxWidth: "100%",
-              maxHeight: "80vh",
-              objectFit: "contain",
-              border: "1px solid #333",
-              boxShadow: "0 0 20px rgba(0,0,0,0.5)",
-              filter: "none",
-              WebkitFilter: "none"
-            }}
-          />
-          <div style={{
-            color: "#ffffff",
-            fontFamily: "var(--font-mono)",
-            fontSize: "12px",
-            marginTop: "16px",
-            textAlign: "center",
-            lineHeight: "1.5"
-          }}>
+          <img src={src} alt={alt} className="lightbox-image" />
+          <div className="lightbox-caption">
             {caption} <br />
-            <span style={{ opacity: 0.5 }}>[ TAP ANYWHERE TO CLOSE ]</span>
+            <span>[ TAP ANYWHERE TO CLOSE ]</span>
           </div>
         </div>
       )}
@@ -104,7 +61,7 @@ function SkillMeter({ skill, comfortable }: { skill: string, comfortable: boolea
   );
 }
 
-// --- THE EXPANDABLE TIMELINE NODE COMPONENT (MOBILE BUTTON OPTIMIZED) ---
+// --- THE EXPANDABLE TIMELINE NODE COMPONENT ---
 function TimelineNode({
   date,
   title,
@@ -138,34 +95,24 @@ function TimelineNode({
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
         role="button"
         tabIndex={0}
-        style={{ cursor: "pointer", position: "relative", zIndex: 10 }}
       >
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          gap: "4px",
-          pointerEvents: "none",
-          maxWidth: "75%"
-        }}>
-          <div className={`timeline-date ${isActive ? "active" : ""}`} style={{ marginBottom: "2px" }}>
+        <div className="timeline-btn-content">
+          <div className={`timeline-date ${isActive ? "active" : ""}`}>
             [ {date} ]
           </div>
-          <div className="timeline-title" style={{ whiteSpace: "normal", lineHeight: "1.3" }}>
+          <div className="timeline-title">
             {title}
           </div>
         </div>
 
-        <div className="timeline-action" style={{ pointerEvents: "none", flexShrink: 0 }}>
+        <div className="timeline-action">
           {isExpanded ? "[ - ] CLOSE" : "[ + ] EXPAND"}
         </div>
       </div>
 
       <div className={`timeline-content-wrapper ${isExpanded ? "expanded" : ""}`}>
         <div className="timeline-content">
-          <p style={{ margin: "0" }}>{description}</p>
-
-          {/* FIXED: Removed inline styles, pointing to responsive CSS class */}
+          <p>{description}</p>
           {link && (
             <Link href={link} className="terminal-link-btn">
               [View Project Article]
@@ -184,7 +131,6 @@ export default function AboutPage() {
   return (
     <main className="about-main">
 
-      {/* MINIMAL TOP BAR */}
       <div className="top-nav-bar">
         <Link className="home-badge" href="/">DB</Link>
         <div className="nav-breadcrumb">
@@ -195,10 +141,7 @@ export default function AboutPage() {
 
       <div className="about-container">
 
-        {/* TOP ROW: Split Layout */}
         <div className="about-split-row">
-
-          {/* LEFT: The Readme */}
           <div className="markdown-body about-col-readme">
             <h1>About Me.</h1>
             <p>
@@ -212,11 +155,8 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* RIGHT: Indexed Assets / Image Board */}
           <div className="about-col-hobbies">
-            <h2 className="section-heading-terminal">
-              About Me // Memories
-            </h2>
+            <h2 className="section-heading-terminal">About Me // Memories</h2>
             <div className="hobby-grid">
               <HobbyImage alt="Counter Strike Tournament Image" caption="IMG_01 // Counter Strike Tournament Image" src="/images/hobbies/BlastLondon.jpg" />
               <HobbyImage alt="Usyk Boxing at Wembley" caption="IMG_02 // Usyk Boxing Match at Wembley" src="/images/hobbies/UsykBoxing.jpg" />
@@ -226,18 +166,11 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* STRUCTURAL DIVIDER */}
         <div className="about-structural-divider"></div>
 
-        {/* BOTTOM ROW: Timeline & Telemetry */}
         <div className="about-split-row-bottom">
-
-          {/* LEFT: The Interactive Timeline */}
           <div className="about-col-timeline">
-            <h2 className="section-heading-terminal large">
-              About Me // Timeline
-            </h2>
-
+            <h2 className="section-heading-terminal large">About Me // Timeline</h2>
             <div className="timeline-track">
               {SYSTEM_LOGS.map((log) => (
                 <TimelineNode
@@ -254,19 +187,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* RIGHT: Live Telemetry Dashboard */}
           <div className="about-col-telemetry">
-            <h2 className="section-heading-terminal large">
-              About Me // Info
-            </h2>
-
+            <h2 className="section-heading-terminal large">About Me // Info</h2>
             <div className="telemetry-dashboard">
-
-              {/* ZONE 1: Core / Work */}
               <div className="telemetry-zone">
-                <span className="telemetry-zone-header">
-                  CORE_SPECS
-                </span>
+                <span className="telemetry-zone-header">CORE_SPECS</span>
                 <div className="telemetry-zone-content">
                   {CORE_SPECS.map((spec) => (
                     <StatBlock key={spec.label} label={spec.label} value={spec.value} />
@@ -274,20 +199,15 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* ZONE 2: Tech Stack (Languages & Infrastructure) */}
               <div className="telemetry-zone">
-
-                {/* Inline Header & Legend */}
                 <div className="telemetry-inline-header">
-                  <span className="telemetry-zone-header">
-                    TECH_STACK
-                  </span>
+                  <span className="telemetry-zone-header">TECH_STACK</span>
                   <div className="telemetry-legend">
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <div className="telemetry-legend-item">
                       <span className="telemetry-legend-dot">●●</span>
                       <span className="telemetry-legend-text">COMFORTABLE</span>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <div className="telemetry-legend-item">
                       <span className="telemetry-legend-dot">●○</span>
                       <span className="telemetry-legend-text">FAMILIAR</span>
                     </div>
@@ -295,7 +215,6 @@ export default function AboutPage() {
                 </div>
 
                 <div className="telemetry-subgroups">
-                  {/* Sub-Group: Languages */}
                   <div className="telemetry-subgroup">
                     <span className="telemetry-subgroup-title">[ Languages ]</span>
                     {LANGUAGE_STACK.map((lang) => (
@@ -303,7 +222,6 @@ export default function AboutPage() {
                     ))}
                   </div>
 
-                  {/* Sub-Group: Tools & Infra */}
                   <div className="telemetry-subgroup">
                     <span className="telemetry-subgroup-title">[ Infrastructure & Tools ]</span>
                     {INFRA_STACK.map((infra) => (
@@ -312,10 +230,8 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
 
       </div>

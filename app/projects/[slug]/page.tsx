@@ -17,27 +17,29 @@ export default async function ProjectArticlePage({ params }: Props) {
     }
 
     return (
-        <main style={{ minHeight: "100vh", backgroundColor: "var(--bg-white)" }}>
+        <main className="article-main">
 
+            {/* ── MINIMAL TOP BAR ── */}
             <div className="top-nav-bar">
                 <Link href="/" className="home-badge">DB</Link>
-                <div className="nav-breadcrumb" style={{ whiteSpace: "nowrap", minWidth: 0, flex: 1 }}>
-                    <span style={{ color: "#aaaaaa" }}>/</span>
+                <div className="nav-breadcrumb breadcrumb-article">
+                    <span className="nav-divider">/</span>
                     <Link href="/projects" className="breadcrumb-link">Projects</Link>
-                    <span style={{ color: "#aaaaaa" }}>/</span>
-                    <span style={{ color: "var(--ink-black)", fontWeight: 600, overflow: "hidden", textOverflow: "ellipsis" }}>
+                    <span className="nav-divider">/</span>
+                    <span className="nav-current text-truncate">
                         {project.frontmatter.title}
                     </span>
                 </div>
             </div>
 
+            {/* ── ARTICLE CONTENT ── */}
             <article className="article-container">
                 <header className="article-header">
 
                     <div className="article-meta">
                         <span className="project-date">{project.frontmatter.date}</span>
                         {project.frontmatter.tags.length > 0 && (
-                            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                            <div className="project-tag-group">
                                 {project.frontmatter.tags.map(tag => (
                                     <span key={tag} className="static-tag">{tag}</span>
                                 ))}
@@ -49,8 +51,8 @@ export default async function ProjectArticlePage({ params }: Props) {
                     <p className="article-desc">{project.frontmatter.description}</p>
 
                     {project.frontmatter.github && (
-                        <div>
-                            <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="terminal-link-btn" style={{ margin: 0 }}>
+                        <div className="article-actions">
+                            <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="terminal-link-btn no-margin">
                                 [GitHub Repo]
                             </a>
                         </div>
