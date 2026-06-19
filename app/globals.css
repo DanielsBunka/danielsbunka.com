@@ -399,17 +399,33 @@ body {
 /* =========================================
    [ 8. PAGE: CONTACT ]
    ========================================= */
+/* Utilities */
+.terminal-link-btn.no-margin { margin-top: 0; }
+.terminal-link-btn.large { margin-top: 0; font-size: 13px; padding: 10px 20px; }
+
+/* Contact Layout */
 .contact-container { max-width: 600px; margin: 0 auto; padding: 60px 24px; }
-.contact-subtitle { margin-bottom: 32px; max-width: 600px; }
+.contact-subtitle { font-size: 16px; margin-bottom: 32px; max-width: 600px; }
 .contact-action-row { display: flex; gap: 16px; margin-bottom: 64px; flex-wrap: wrap; }
+
+/* Contact List */
 .contact-links-col { display: flex; flex-direction: column; gap: 24px; }
 .contact-block { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border-medium); }
 .contact-block-heading { font-family: var(--font-mono); font-size: 13px; font-weight: 700; text-transform: uppercase; margin: 0; padding: 0; border: none; line-height: 1; }
 .contact-block-desc { color: var(--ink-charcoal); font-size: 14px; margin-top: 4px; }
 
+/* Copy Email Button specific mechanics */
 .copy-email-btn { margin-top: 0; cursor: pointer; border: none; width: 120px; display: flex; justify-content: center; align-items: center; transition: all 0.2s ease; }
-.copy-email-text { display: inline-block; transition: transform 0.15s ease; }
+.copy-email-text { display: inline-block; transition: transform 0.3s ease; }
 .copy-email-text.pressed { transform: scale(0.92); }
+
+/* Lock all contact list buttons to the same size and center their text */
+.contact-block .terminal-link-btn {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* =========================================
    [ 9. PAGE: 404 ERROR ]

@@ -70,6 +70,7 @@ export const LANGUAGE_STACK = [
     { skill: "Python", comfortable: true },
     { skill: "HTML / CSS", comfortable: true },
     { skill: "JavaScript", comfortable: true },
+    { skill: "TypeScript", comfortable: true },
     { skill: "Java", comfortable: false },
     { skill: "Visual Basic", comfortable: false },
     { skill: "SQL", comfortable: false }
