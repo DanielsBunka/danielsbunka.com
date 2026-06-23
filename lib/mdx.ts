@@ -17,6 +17,8 @@ export type ProjectFrontmatter = {
   tags: string[];
   github: string;
   date: string;
+  featured?: boolean;       
+  featured_order?: number;  
 };
 
 // Returns the raw MDX content + frontmatter for one project

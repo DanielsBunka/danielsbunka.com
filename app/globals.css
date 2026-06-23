@@ -205,13 +205,24 @@ body {
 .markdown-body h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: var(--ink-black); }
 .markdown-body p { color: var(--ink-charcoal); margin-bottom: 24px; }
 .markdown-body a { color: var(--ink-black); text-decoration: underline; text-underline-offset: 4px; font-weight: 500; }
-.markdown-body ul { padding-left: 24px; margin-bottom: 24px; color: var(--ink-charcoal); }
-.markdown-body li { margin-bottom: 8px; }
+.markdown-body ul { list-style: none !important; padding-left: 0; margin-bottom: 24px; color: var(--ink-charcoal); }
+.markdown-body li { margin-bottom: 12px; line-height: 1.6; }
+.markdown-body li ul { margin-top: 8px; margin-bottom: 0; }
 .markdown-body blockquote { border-left: 3px solid var(--ink-black); padding-left: 16px; font-style: italic; color: var(--ink-grey); margin: 24px 0; }
 .markdown-body code { font-family: var(--font-mono); background-color: #f0f0f0; color: var(--ink-black); padding: 2px 6px; font-size: 13px; }
 .markdown-body pre { background-color: var(--ink-black); color: var(--bg-white); padding: 20px; overflow-x: auto; margin: 32px 0; }
 .markdown-body pre code { background-color: transparent; color: inherit; padding: 0; font-size: 14px; }
 .markdown-body img { max-width: 100%; height: auto; display: block; margin: 40px 0; border: 1px solid #e8e8e8; }
+.markdown-body strong, .markdown-body b { color: var(--ink-black) !important; font-weight: 700 !important; }
+
+.markdown-body p code, .markdown-body li code {
+  font-family: inherit;
+  background-color: #f3f4f6; 
+  color: #1f2937; 
+  border: 1px solid #d1d5db; 
+  padding: 0.05em 0.4em; /* Reduced the vertical padding here */
+  font-size: 0.9em;
+}
 
 .section-heading-terminal {
   font-family: var(--font-mono);
