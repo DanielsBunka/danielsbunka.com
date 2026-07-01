@@ -49,6 +49,7 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
         <div className="filter-tag-group">
           {TAGS.map(tag => (
             <button
+              type="button"
               key={tag}
               onClick={() => handleTagClick(tag)}
               className={`filter-tag ${selectedTags.includes(tag) ? "selected" : ""}`}
@@ -60,12 +61,14 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
         <div className={`filter-controls ${selectedTags.length === 0 ? "disabled" : ""}`}>
           <div className="filter-toggle-group">
             <button
+              type="button"
               onClick={() => setFilterMode("AND")}
               className={`filter-toggle-btn ${filterMode === "AND" ? "active" : ""}`}
             >
               All
             </button>
             <button
+              type="button"
               onClick={() => setFilterMode("OR")}
               className={`filter-toggle-btn ${filterMode === "OR" ? "active" : ""}`}
             >
@@ -73,6 +76,7 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
             </button>
           </div>
           <button
+            type="button"
             onClick={() => { setSelectedTags([]); setFilterMode("AND"); }}
             className="filter-clear-btn"
           >
@@ -113,13 +117,14 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
             <p className="project-desc">{project.frontmatter.description}</p>
             <div className="project-tag-group">
               {project.frontmatter.tags.map(tag => (
-                <span
+                <button
+                  type="button"
                   key={tag}
                   onClick={() => handleTagClick(tag)}
                   className={`static-tag interactive ${selectedTags.includes(tag) ? "selected" : ""}`}
                 >
                   {tag}
-                </span>
+                </button>
               ))}
             </div>
           </div>

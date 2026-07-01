@@ -308,7 +308,7 @@ body {
 
 /* Hobbies Component */
 .hobby-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
-.hobby-card { display: flex; flex-direction: column; gap: 8px; width: 100%; cursor: pointer; }
+.hobby-card { display: flex; flex-direction: column; gap: 8px; width: 100%; cursor: pointer; background: transparent; border: none; padding: 0; text-align: left; font-family: inherit; color: inherit; }
 .hobby-image-frame { border: 1px solid var(--ink-black); aspect-ratio: 1 / 1; background-color: #f0f0f0; overflow: hidden; position: relative; }
 .hobby-image-frame img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.3s ease; display: block; filter: none; -webkit-filter: none; }
 .hobby-image-frame:hover img { filter: grayscale(0%); }

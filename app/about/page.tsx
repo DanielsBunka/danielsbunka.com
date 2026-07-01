@@ -11,7 +11,8 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
 
   return (
     <>
-      <div
+      <button
+        type="button"
         className="hobby-card"
         onClick={() => setIsOpen(true)}
         title="Click to expand"
@@ -23,7 +24,7 @@ function HobbyImage({ src, alt, caption }: { src: string, alt: string, caption: 
         <div className="hobby-caption">
           {caption}
         </div>
-      </div>
+      </button>
 
       {isOpen && (
         <div className="lightbox-overlay" onClick={() => setIsOpen(false)}>
@@ -89,12 +90,10 @@ function TimelineNode({
     <div className="timeline-node-wrapper">
       <div className={`timeline-marker ${isActive ? "active" : ""}`} />
 
-      <div
+      <button
+        type="button"
         onClick={handleToggle}
-        onTouchEnd={handleToggle}
         className={`timeline-btn ${isExpanded ? "expanded" : ""}`}
-        role="button"
-        tabIndex={0}
       >
         <div className="timeline-btn-content">
           <div className={`timeline-date ${isActive ? "active" : ""}`}>
@@ -108,7 +107,7 @@ function TimelineNode({
         <div className="timeline-action">
           {isExpanded ? "[ - ] CLOSE" : "[ + ] EXPAND"}
         </div>
-      </div>
+      </button>
 
       <div className={`timeline-content-wrapper ${isExpanded ? "expanded" : ""}`}>
         <div className="timeline-content">
