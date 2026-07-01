@@ -87,7 +87,7 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
             <div className="project-card-header">
               <div className="project-header-text">
                 <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "4px" }}>
-                  <span className="project-date">{project.frontmatter.date}</span>
+                  <span className="project-date">{project.frontmatter.projectDate}</span>
                   {/* THE FEATURED BADGE */}
                   {project.frontmatter.featured && (
                     <span style={{ 

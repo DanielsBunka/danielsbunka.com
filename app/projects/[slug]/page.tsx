@@ -34,29 +34,40 @@ export default async function ProjectArticlePage({ params }: Props) {
 
             {/* ── ARTICLE CONTENT ── */}
             <article className="article-container">
-                <header className="article-header">
+                <header className="article-header-clean">
 
-                    <div className="article-meta">
-                        <span className="project-date">{project.frontmatter.date}</span>
-                        {project.frontmatter.tags.length > 0 && (
-                            <div className="project-tag-group">
-                                {project.frontmatter.tags.map(tag => (
-                                    <span key={tag} className="static-tag">{tag}</span>
-                                ))}
-                            </div>
+                    {/* 1. TITLE & SHRUNK GITHUB BUTTON */}
+                    <div className="article-title-row">
+                        <h1 className="article-title inline">
+                            {project.frontmatter.title}
+                        </h1>
+
+                        {project.frontmatter.github && (
+                            <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="terminal-link-btn compact">
+                                [GitHub Repo]
+                            </a>
                         )}
                     </div>
 
-                    <h1 className="article-title">{project.frontmatter.title}</h1>
-                    <p className="article-desc">{project.frontmatter.description}</p>
-
-                    {project.frontmatter.github && (
-                        <div className="article-actions">
-                            <a href={project.frontmatter.github} target="_blank" rel="noopener noreferrer" className="terminal-link-btn no-margin">
-                                [GitHub Repo]
-                            </a>
+                    {/* 2. TEXT-BASED TAGS */}
+                    {project.frontmatter.tags.length > 0 && (
+                        <div className="article-tags-text">
+                            {project.frontmatter.tags.join(" • ")}
                         </div>
                     )}
+
+                    {/* 3. DESCRIPTION */}
+                    <p className="article-desc compact">
+                        {project.frontmatter.description}
+                    </p>
+
+                    {/* 4. BOUNDED DATES (Top and Bottom lines) */}
+                    <div className="article-dates-bounded">
+                        <span>Project Date: {project.frontmatter.projectDate}</span>
+                        <span className="date-separator">•</span>
+                        <span>Article Updated: {project.frontmatter.publishedAt}</span>
+                    </div>
+
                 </header>
 
                 <div className="markdown-body">

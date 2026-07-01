@@ -16,7 +16,8 @@ export type ProjectFrontmatter = {
   description: string;
   tags: string[];
   github: string;
-  date: string;
+  projectDate: string;
+  publishedAt: string;
   featured?: boolean;       
   featured_order?: number;  
 };
@@ -63,5 +64,5 @@ export function getAllProjects() {
         frontmatter: data as ProjectFrontmatter,
       };
     })
-    .sort((a, b) => (a.frontmatter.date < b.frontmatter.date ? 1 : -1));
+    .sort((a, b) => (a.frontmatter.projectDate < b.frontmatter.projectDate ? 1 : -1));
 }

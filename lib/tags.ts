@@ -9,6 +9,7 @@ export const TAGS = [
   "Python",
   "HTML",
   "CSS",
+  "SQLite",
   "Flask",
   "React",
   "Next.js",
@@ -19,6 +20,4 @@ export const TAGS = [
 ] as const;
 
 // This creates a TypeScript type from the array above.
-// It means if you typo a tag in your MDX frontmatter,
-// TypeScript will warn you — catches mistakes early.
 export type Tag = typeof TAGS[number];

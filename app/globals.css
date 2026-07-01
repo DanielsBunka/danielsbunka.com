@@ -187,6 +187,7 @@ body {
 
 .terminal-link-btn.large { margin-top: 0; font-size: 13px; padding: 10px 20px; }
 .terminal-link-btn.no-margin { margin-top: 0; }
+.terminal-link-btn.compact { margin: 0; padding: 4px 12px; font-size: 12px; height: fit-content; }
 
 @media (hover: hover) {
   .terminal-link-btn:hover { background-color: transparent; color: #111111; }
@@ -202,6 +203,7 @@ body {
 .markdown-body { font-size: 16px; color: #333333; line-height: 1.6; }
 .markdown-body h1 { font-size: clamp(36px, 6vw, 48px); font-weight: 800; letter-spacing: -1.5px; margin-top: 0; margin-bottom: 32px; line-height: 1; color: var(--ink-black); }
 .markdown-body h2 { font-size: 24px; font-weight: 700; margin-top: 48px; margin-bottom: 16px; color: var(--ink-black); }
+.markdown-body > *:first-child { margin-top: 16px; }
 .markdown-body h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: var(--ink-black); }
 .markdown-body p { color: var(--ink-charcoal); margin-bottom: 24px; }
 .markdown-body a { color: var(--ink-black); text-decoration: underline; text-underline-offset: 4px; font-weight: 500; }
@@ -220,7 +222,7 @@ body {
   background-color: #f3f4f6; 
   color: #1f2937; 
   border: 1px solid #d1d5db; 
-  padding: 0.05em 0.4em; /* Reduced the vertical padding here */
+  padding: 0.05em 0.4em;
   font-size: 0.9em;
 }
 
@@ -395,17 +397,53 @@ body {
    ========================================= */
 .article-main { min-height: 100vh; background-color: var(--bg-white); }
 .article-container { max-width: 680px; margin: 0 auto; padding: 80px 24px; }
-.article-header { padding-bottom: 40px; margin-bottom: 48px; border-bottom: 1px solid var(--border-light); }
-.article-header > :last-child {margin-bottom: 0;}
-.article-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
-.article-title { font-size: 32px; font-weight: 700; color: var(--ink-black); margin: 0 0 24px 0; letter-spacing: -0.5px; }
-.article-desc { font-size: 16px; color: var(--ink-grey); line-height: 1.7; margin: 0 0 32px 0; }
-.article-actions { margin-top: 24px; }
 
 .breadcrumb-article { white-space: nowrap; min-width: 0; flex: 1; }
 .breadcrumb-link { color: var(--ink-charcoal); text-decoration: none; transition: color 0.15s ease; }
 .breadcrumb-link:hover { color: var(--ink-black); }
 .text-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+
+/* The original header was causing ghost padding, this is the fixed version */
+.article-header-clean { margin-bottom: 0px; }
+
+.article-title-row { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 16px; 
+  margin-bottom: 12px; 
+  flex-wrap: wrap; 
+}
+
+.article-title { font-size: 32px; font-weight: 700; color: var(--ink-black); margin: 0 0 24px 0; letter-spacing: -0.5px; }
+.article-title.inline { margin: 0; }
+
+.article-tags-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #888888;
+  margin-bottom: 16px;
+  margin-left: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.article-desc { font-size: 16px; color: var(--ink-grey); line-height: 1.7; margin: 0 0 32px 0; }
+.article-desc.compact { margin-bottom: 16px; }
+
+.article-dates-bounded {
+  padding: 12px 0;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 32px;
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--ink-grey);
+}
+
+.date-separator { opacity: 0.5; }
+.article-actions { margin-top: 24px; }
 
 /* =========================================
    [ 8. PAGE: CONTACT ]
