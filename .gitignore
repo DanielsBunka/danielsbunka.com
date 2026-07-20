@@ -44,3 +44,6 @@ next-env.d.ts
 /Image Ideas
 Research - Design/
 repomix-output.xml
+
+# Settings
+/.vscode/settings.json
