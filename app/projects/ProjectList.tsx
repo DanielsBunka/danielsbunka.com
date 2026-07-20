@@ -16,10 +16,10 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
   // 1. Filter by tags
   const baseFiltered = selectedTags.length > 0
     ? projects.filter(p =>
-         filterMode === "AND"
-          ? selectedTags.every(tag => p.frontmatter.tags.includes(tag))
-          : selectedTags.some(tag => p.frontmatter.tags.includes(tag))
-      )
+      filterMode === "AND"
+        ? selectedTags.every(tag => p.frontmatter.tags.includes(tag))
+        : selectedTags.some(tag => p.frontmatter.tags.includes(tag))
+    )
     : [...projects];
 
   // 2. Sort featured to the top, respecting featured_order
@@ -37,9 +37,9 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
 
   function handleTagClick(tag: string) {
     setSelectedTags(prev =>
-       prev.includes(tag)
-         ? prev.filter(t => t !== tag)
-         : [...prev, tag]
+      prev.includes(tag)
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
     );
   }
 
@@ -94,13 +94,13 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
                   <span className="project-date">{project.frontmatter.projectDate}</span>
                   {/* THE FEATURED BADGE */}
                   {project.frontmatter.featured && (
-                    <span style={{ 
-                      fontSize: "10px", 
-                      fontFamily: "var(--font-mono)", 
-                      color: "var(--ink-black)", 
-                      fontWeight: 700, 
-                      backgroundColor: "#f0f0f0", 
-                      padding: "2px 6px", 
+                    <span style={{
+                      fontSize: "10px",
+                      fontFamily: "var(--font-mono)",
+                      color: "var(--ink-black)",
+                      fontWeight: 700,
+                      backgroundColor: "#f0f0f0",
+                      padding: "2px 6px",
                       borderRadius: "4px",
                       letterSpacing: "0.05em"
                     }}>
@@ -108,10 +108,18 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
                     </span>
                   )}
                 </div>
-                <h2 className="project-title">{project.frontmatter.title}</h2>
+                <h2 className="project-title project-title-desktop">
+                  {project.frontmatter.title}
+                </h2>
+
+                <h2 className="project-title project-title-mobile">
+                  <Link href={`/projects/${project.slug}`} className="project-title-mobile-link">
+                    {project.frontmatter.title}
+                  </Link>
+                </h2>
               </div>
-              <Link href={`/projects/${project.slug}`} className="read-more-link">
-                Read more -&gt;
+              <Link href={`/projects/${project.slug}`} className="project-read-btn">
+                Read article →
               </Link>
             </div>
             <p className="project-desc">{project.frontmatter.description}</p>

@@ -18,7 +18,7 @@
 
 body {
   margin: 0;
-  background: var(--bg-white);
+  background: var(--bg-page);
   color: var(--ink-black);
   font-family: var(--font-sans);
   overflow-y: scroll; /* Permanently locks the scrollbar track to prevent layout shifts */
@@ -205,6 +205,7 @@ body {
 .markdown-body h2 { font-size: 24px; font-weight: 700; margin-top: 48px; margin-bottom: 16px; color: var(--ink-black); }
 .markdown-body > *:first-child { margin-top: 16px; }
 .markdown-body h3 { font-size: 20px; font-weight: 600; margin-top: 32px; margin-bottom: 12px; color: var(--ink-black); }
+.markdown-body h4 {font-size: 16px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; color: var(--ink-black); letter-spacing: -0.2px; line-height: 1.3;}
 .markdown-body p { color: var(--ink-charcoal); margin-bottom: 24px; }
 .markdown-body a { color: var(--ink-black); text-decoration: underline; text-underline-offset: 4px; font-weight: 500; }
 .markdown-body ul { list-style: none !important; padding-left: 0; margin-bottom: 24px; color: var(--ink-charcoal); }
@@ -292,7 +293,7 @@ body {
 /* =========================================
    [ 5. PAGE: ABOUT ME ]
    ========================================= */
-.about-main { min-height: 100vh; background-color: var(--bg-white); }
+.about-main { min-height: 100vh; background-color: var(--bg-page); }
 .about-container { max-width: 1200px; margin: 0 auto; padding: 80px 24px 160px 24px; box-sizing: border-box; }
 .about-split-row { display: flex; flex-wrap: wrap; gap: 64px; margin-bottom: 80px; box-sizing: border-box; }
 .about-split-row-bottom { display: flex; flex-wrap: wrap; gap: 64px; box-sizing: border-box; }
@@ -382,20 +383,36 @@ body {
 .project-list-wrapper { display: flex; flex-direction: column; }
 .project-card { padding: 28px 0; border-top: 1px solid var(--border-light); }
 .project-card:last-child { border-bottom: 1px solid var(--border-light); }
-.project-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 10px; }
+.project-card-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 10px; }
 .project-header-text { display: flex; flex-direction: column; gap: 4px; }
 .project-date { font-family: var(--font-mono); font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; }
 .project-title { margin: 0; font-size: 18px; font-weight: 600; color: var(--ink-black); }
 .project-desc { margin: 0 0 14px 0; font-size: 14px; color: var(--ink-grey); line-height: 1.7; max-width: 600px; }
 .project-tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
-.read-more-link { font-size: 12px; color: #999999; text-decoration: none; white-space: nowrap; flex-shrink: 0; padding-top: 2px; transition: color 0.2s ease; }
-.read-more-link:hover { color: var(--ink-black); }
+.read-more-link { font-size: 12px; color: var(--ink-grey);  font-weight: 500; text-decoration: none; white-space: nowrap; flex-shrink: 0; padding-top: 2px; transition: color 0.2s ease; }
+.read-more-link:hover,.read-more-link:focus-visible { color: var(--ink-black); }
 .empty-state-msg { font-size: 13px; color: #aaa; padding: 40px 0; }
+
+.project-read-btn { display: inline-flex; align-items: center; justify-content: center; padding: 5px 10px; background-color: transparent; border: 1px solid var(--border-medium); border-radius: 2px; color: var(--ink-charcoal); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: background-color 0.15s ease,color 0.15s ease,border-color 0.15s ease; }
+.project-read-btn:hover,.project-read-btn:focus-visible { background-color: var(--ink-black); border-color: var(--ink-black); color: var(--bg-white); }
+.project-read-btn:focus-visible { outline: 2px solid var(--ink-black); outline-offset: 3px; }
+
+.project-title-mobile { display: none; }
+.project-title-mobile-link { color: inherit; text-decoration: none; }
+
+@media (max-width: 600px) {
+  .project-title-desktop { display: none; }
+  .project-title-mobile { display: block; }
+  .project-read-btn { display: none; }
+  .project-card-header { display: block; margin-bottom: 10px; }
+  .project-title-mobile-link:active { color: var(--ink-charcoal); }
+  .project-title-mobile-link:focus-visible { outline: 2px solid var(--ink-black); outline-offset: 3px; }
+}
 
 /* =========================================
    [ 7. PAGE: ARTICLE (SLUG) ]
    ========================================= */
-.article-main { min-height: 100vh; background-color: var(--bg-white); }
+.article-main { min-height: 100vh; background-color: var(--bg-page); }
 .article-container { max-width: 680px; margin: 0 auto; padding: 80px 24px; }
 
 .breadcrumb-article { white-space: nowrap; min-width: 0; flex: 1; }

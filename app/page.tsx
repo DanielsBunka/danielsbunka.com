@@ -61,7 +61,7 @@ export default function Home() {
       </div>
 
       <div className="home-btn-group">
-        <Link href="/projects" className="home-btn">See Projects</Link>
+        <Link href="/projects" className="home-btn">View Projects</Link>
         <Link href="/about" className="home-btn">About Me</Link>
         <Link href="/contact" className="home-btn">Contact Me</Link>
       </div>
