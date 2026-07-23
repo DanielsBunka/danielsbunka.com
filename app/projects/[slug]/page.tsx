@@ -1,12 +1,54 @@
 // app/projects/[slug]/page.tsx
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {
+    isValidElement,
+    type ComponentPropsWithoutRef,
+    type ReactNode,
+} from "react";
 import { getProjectBySlug } from "@/lib/mdx";
+import {
+    getArticleHeadings,
+    slugifyHeading,
+} from "@/lib/article-headings";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import ArticleTableOfContents from "./ArticleTableOfContents";
 
 type Props = {
     params: Promise<{ slug: string }>;
 };
+
+type HeadingProps = ComponentPropsWithoutRef<"h2">;
+
+function getNodeText(node: ReactNode): string {
+    if (typeof node === "string" || typeof node === "number") {
+        return String(node);
+    }
+
+    if (Array.isArray(node)) {
+        return node.map(getNodeText).join("");
+    }
+
+    if (isValidElement<{ children?: ReactNode }>(node)) {
+        return getNodeText(node.props.children);
+    }
+
+    return "";
+}
+
+function ArticleHeading({
+    level,
+    children,
+    ...props
+}: HeadingProps & { level: 2 | 3 }) {
+    const id = slugifyHeading(getNodeText(children));
+
+    if (level === 2) {
+        return <h2 {...props} id={id}>{children}</h2>;
+    }
+
+    return <h3 {...props} id={id}>{children}</h3>;
+}
 
 export default async function ProjectArticlePage({ params }: Props) {
     const { slug } = await params;
@@ -16,8 +58,14 @@ export default async function ProjectArticlePage({ params }: Props) {
         notFound();
     }
 
+    const headings = getArticleHeadings(project.content);
+    const mdxComponents = {
+        h2: (props: HeadingProps) => <ArticleHeading {...props} level={2} />,
+        h3: (props: HeadingProps) => <ArticleHeading {...props} level={3} />,
+    };
+
     return (
-        <main className="article-main">
+        <main className="article-main" id="article-top">
 
             {/* ── MINIMAL TOP BAR ── */}
             <div className="top-nav-bar">
@@ -33,7 +81,10 @@ export default async function ProjectArticlePage({ params }: Props) {
             </div>
 
             {/* ── ARTICLE CONTENT ── */}
-            <article className="article-container">
+            <div className="article-layout">
+                <ArticleTableOfContents headings={headings} />
+
+                <article className="article-container">
                 <header className="article-header-clean">
 
                     {/* 1. TITLE & SHRUNK GITHUB BUTTON */}
@@ -71,10 +122,14 @@ export default async function ProjectArticlePage({ params }: Props) {
                 </header>
 
                 <div className="markdown-body">
-                    <MDXRemote source={project.content} />
+                    <MDXRemote
+                        source={project.content}
+                        components={mdxComponents}
+                    />
                 </div>
 
-            </article>
+                </article>
+            </div>
         </main>
     );
 }
