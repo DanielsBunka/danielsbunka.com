@@ -150,9 +150,9 @@ export default function ArticleTableOfContents({ headings }: Props) {
       <details className="article-toc-mobile">
         <summary>
           <span className="article-toc-mobile-copy">
-            <span>Article navigator</span>
+            <span>Sections</span>
             <span className="article-toc-mobile-hint">
-              Tap to browse sections
+              Browse article
             </span>
           </span>
           <span className="article-toc-mobile-status">

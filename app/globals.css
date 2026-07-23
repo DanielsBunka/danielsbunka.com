@@ -14,6 +14,7 @@
   --border-medium: #d4d4d4;
   --font-mono: var(--font-jetbrains), monospace;
   --font-sans: var(--font-jetbrains), Arial, Helvetica, sans-serif;
+  --font-reading: var(--font-jetbrains), monospace;
 }
 
 body {
@@ -201,6 +202,7 @@ body {
    [ 3. TYPOGRAPHY & MARKDOWN ]
    ========================================= */
 .markdown-body { font-size: 16px; color: #333333; line-height: 1.6; }
+.markdown-body p,.markdown-body li,.markdown-body blockquote { font-family: var(--font-reading); }
 .markdown-body h1 { font-size: clamp(36px, 6vw, 48px); font-weight: 800; letter-spacing: -1.5px; margin-top: 0; margin-bottom: 32px; line-height: 1; color: var(--ink-black); }
 .markdown-body h2 { font-size: 24px; font-weight: 700; margin-top: 48px; margin-bottom: 16px; color: var(--ink-black); }
 .markdown-body > *:first-child { margin-top: 16px; }
@@ -217,6 +219,19 @@ body {
 .markdown-body pre code { background-color: transparent; color: inherit; padding: 0; font-size: 14px; }
 .markdown-body img { max-width: 100%; height: auto; display: block; margin: 40px 0; border: 1px solid #e8e8e8; }
 .markdown-body strong, .markdown-body b { color: var(--ink-black) !important; font-weight: 700 !important; }
+
+.file-tree { margin: 32px 0; padding: 20px; color: var(--bg-white); background-color: var(--ink-black); font-family: var(--font-mono); }
+.file-tree figcaption { margin-bottom: 16px; font-size: 14px; font-weight: 700; }
+.markdown-body .file-tree ul { margin: 0; padding: 0; color: inherit; list-style: none !important; }
+.markdown-body .file-tree ul ul { margin: 10px 0 4px 8px; padding-left: 16px; border-left: 1px solid #555555; }
+.markdown-body .file-tree li { display: flex; align-items: baseline; gap: 16px; margin-bottom: 10px; font-family: var(--font-mono); }
+.markdown-body .file-tree li.file-tree-folder { display: block; }
+.markdown-body .file-tree code { padding: 0; color: var(--bg-white); background: transparent; border: none; font-family: var(--font-mono); font-size: 13px; }
+.file-tree span { color: #aaaaaa; font-size: 12px; line-height: 1.5; }
+.system-prompt-callout { margin: 32px 0; padding: 20px; border: 1px solid var(--border-medium); border-left: 3px solid var(--ink-black); background-color: var(--bg-white); }
+.system-prompt-label { margin-bottom: 12px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+.system-prompt-content { color: var(--ink-charcoal); font-family: var(--font-reading); font-size: 15px; line-height: 1.7; }
+.markdown-body .system-prompt-content p { margin: 0; }
 
 .markdown-body p code, .markdown-body li code {
   font-family: inherit;
@@ -293,6 +308,7 @@ body {
 /* =========================================
    [ 5. PAGE: ABOUT ME ]
    ========================================= */
+.about-main,.about-main .markdown-body p,.about-main .markdown-body li,.about-main .markdown-body blockquote { font-family: var(--font-mono); }
 .about-main { min-height: 100vh; background-color: var(--bg-page); }
 .about-container { max-width: 1200px; margin: 0 auto; padding: 80px 24px 160px 24px; box-sizing: border-box; }
 .about-split-row { display: flex; flex-wrap: wrap; gap: 64px; margin-bottom: 80px; box-sizing: border-box; }
@@ -440,7 +456,8 @@ body {
   .article-layout { display: block; max-width: 760px; padding: 80px 0; }
   .article-container { margin: 0 auto; }
   .article-toc-desktop { display: none; }
-  .article-toc-mobile { position: fixed; right: 16px; bottom: 16px; left: 16px; z-index: 50; display: block; border: 1px solid var(--border-medium); background-color: var(--bg-white); box-shadow: 0 8px 24px rgba(17, 17, 17, 0.14); font-family: var(--font-mono); }
+  .article-toc-mobile { position: fixed; right: 16px; bottom: 16px; left: auto; z-index: 50; display: block; width: 220px; max-width: calc(100% - 32px); border: 1px solid var(--border-medium); background-color: var(--bg-white); box-shadow: 0 8px 24px rgba(17, 17, 17, 0.14); font-family: var(--font-mono); }
+  .article-toc-mobile[open] { left: 16px; width: auto; }
   .article-toc-mobile summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 11px 14px; color: var(--bg-white); background-color: var(--ink-black); cursor: pointer; list-style: none; }
   .article-toc-mobile summary::-webkit-details-marker { display: none; }
   .article-toc-mobile-copy { display: flex; flex-direction: column; gap: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -470,6 +487,8 @@ body {
   flex-wrap: wrap; 
 }
 
+.article-title,.article-container .markdown-body h1,.article-container .markdown-body h2,.article-container .markdown-body h3,.article-container .markdown-body h4 { font-family: var(--font-reading); }
+.article-container .markdown-body p,.article-container .markdown-body li,.article-container .markdown-body blockquote { font-size: 15px; font-weight: 400; line-height: 1.8; letter-spacing: -0.025em; }
 .article-title { font-size: 32px; font-weight: 700; color: var(--ink-black); margin: 0 0 24px 0; letter-spacing: -0.5px; }
 .article-title.inline { margin: 0; }
 
@@ -483,7 +502,7 @@ body {
   letter-spacing: 0.05em;
 }
 
-.article-desc { font-size: 16px; color: var(--ink-grey); line-height: 1.7; margin: 0 0 32px 0; }
+.article-desc { font-family: var(--font-reading); font-size: 15px; font-weight: 400; color: var(--ink-grey); line-height: 1.8; letter-spacing: -0.025em; margin: 0 0 32px 0; }
 .article-desc.compact { margin-bottom: 16px; }
 
 .article-dates-bounded {
@@ -499,6 +518,25 @@ body {
 
 .date-separator { opacity: 0.5; }
 .article-actions { margin-top: 24px; }
+
+@media (max-width: 600px) {
+  .top-nav-bar { height: 64px; padding-right: 20px; }
+  .home-badge { width: 64px; height: 64px; font-size: 30px; }
+  .nav-breadcrumb { gap: 12px; margin-left: 16px; font-size: 12px; }
+  .article-layout { padding: 32px 0 80px; }
+  .article-title { font-size: 30px; line-height: 1.2; }
+  .article-title-row { gap: 10px; margin-bottom: 10px; }
+  .article-tags-text { margin-bottom: 12px; font-size: 11px; }
+  .article-desc.compact { margin-bottom: 12px; }
+  .article-dates-bounded { flex-direction: column; gap: 4px; margin-bottom: 24px; padding: 10px 0; font-size: 12px; }
+  .date-separator { display: none; }
+  .markdown-body { font-size: 17px; line-height: 1.65; }
+  .markdown-body p { margin-bottom: 20px; }
+  .article-desc,.article-container .markdown-body p,.article-container .markdown-body li,.article-container .markdown-body blockquote { font-size: 14px; line-height: 1.75; letter-spacing: -0.03em; }
+  .file-tree { margin-inline: -24px; padding: 18px 24px; }
+  .markdown-body .file-tree li { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .markdown-body .file-tree ul ul { margin-left: 4px; padding-left: 12px; }
+}
 
 /* =========================================
    [ 8. PAGE: CONTACT ]

@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     // Injects the variables into the HTML tag so globals.css can see them
-    <html lang="en" className={`${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${jetbrainsMono.variable}`} data-scroll-behavior="smooth">
         <body className="antialiased">
           {children}
         </body>
