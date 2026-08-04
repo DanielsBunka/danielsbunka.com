@@ -25,21 +25,35 @@ export default function ArticleTableOfContents({ headings }: Props) {
 
       const article = document.querySelector<HTMLElement>(".article-container");
       const sectionMarker = 160;
+      const subsectionMarker = 96;
       let currentId = headings[0].id;
 
       for (const heading of headings) {
         const element = document.getElementById(heading.id);
+        const activationMarker =
+          heading.level === 3 ? subsectionMarker : sectionMarker;
 
-        if (element && element.getBoundingClientRect().top <= sectionMarker) {
+        if (
+          element &&
+          element.getBoundingClientRect().top <= activationMarker
+        ) {
           currentId = heading.id;
-        } else {
-          break;
         }
       }
 
-      setActiveId(currentId);
+      if (!article) {
+        setActiveId(currentId);
+        return;
+      }
 
-      if (!article) return;
+      const hasReachedArticleEnd =
+        article.getBoundingClientRect().bottom <= window.innerHeight + 24;
+
+      if (hasReachedArticleEnd) {
+        currentId = headings[headings.length - 1].id;
+      }
+
+      setActiveId(currentId);
 
       const articleTop =
         window.scrollY + article.getBoundingClientRect().top;
@@ -84,6 +98,24 @@ export default function ArticleTableOfContents({ headings }: Props) {
     event.currentTarget.closest("details")?.removeAttribute("open");
   };
 
+  const navigateWithinArticle = (
+    event: MouseEvent<HTMLAnchorElement>,
+    targetId: string,
+    closeOnNavigate: boolean
+  ) => {
+    event.preventDefault();
+
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (closeOnNavigate) {
+      closeMobileNavigation(event);
+    }
+  };
+
   const renderLinks = (closeOnNavigate = false) => (
     <ul className="article-toc-list">
       {headings.map((heading) => (
@@ -99,7 +131,9 @@ export default function ArticleTableOfContents({ headings }: Props) {
               activeId === heading.id ? " active" : ""
             }`}
             aria-current={activeId === heading.id ? "location" : undefined}
-            onClick={closeOnNavigate ? closeMobileNavigation : undefined}
+            onClick={(event) =>
+              navigateWithinArticle(event, heading.id, closeOnNavigate)
+            }
           >
             {heading.text}
           </a>
@@ -109,7 +143,9 @@ export default function ArticleTableOfContents({ headings }: Props) {
         <a
           href="#article-top"
           className="article-toc-back"
-          onClick={closeOnNavigate ? closeMobileNavigation : undefined}
+          onClick={(event) =>
+            navigateWithinArticle(event, "article-top", closeOnNavigate)
+          }
         >
           ↑ Back to top
         </a>
