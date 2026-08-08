@@ -24,17 +24,30 @@ export default function ArticleTableOfContents({ headings }: Props) {
       animationFrame = 0;
 
       const article = document.querySelector<HTMLElement>(".article-container");
-      const sectionMarker = 160;
-      const subsectionMarker = 96;
+      const standardMarker = 160;
+      const closeHeadingMarker = 96;
+      const closeHeadingDistance = 180;
       let currentId = headings[0].id;
 
-      for (const heading of headings) {
+      for (const [index, heading] of headings.entries()) {
         const element = document.getElementById(heading.id);
+
+        if (!element) continue;
+
+        const previousHeading = headings[index - 1];
+        const previousElement = previousHeading
+          ? document.getElementById(previousHeading.id)
+          : null;
+        const headingDistance = previousElement
+          ? element.getBoundingClientRect().top -
+            previousElement.getBoundingClientRect().top
+          : Number.POSITIVE_INFINITY;
         const activationMarker =
-          heading.level === 3 ? subsectionMarker : sectionMarker;
+          headingDistance < closeHeadingDistance
+            ? closeHeadingMarker
+            : standardMarker;
 
         if (
-          element &&
           element.getBoundingClientRect().top <= activationMarker
         ) {
           currentId = heading.id;

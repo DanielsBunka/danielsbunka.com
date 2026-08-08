@@ -40,14 +40,18 @@ function ArticleHeading({
     level,
     children,
     ...props
-}: HeadingProps & { level: 2 | 3 }) {
+}: HeadingProps & { level: 2 | 3 | 4 }) {
     const id = slugifyHeading(getNodeText(children));
 
     if (level === 2) {
         return <h2 {...props} id={id}>{children}</h2>;
     }
 
-    return <h3 {...props} id={id}>{children}</h3>;
+    if (level === 3) {
+        return <h3 {...props} id={id}>{children}</h3>;
+    }
+
+    return <h4 {...props} id={id}>{children}</h4>;
 }
 
 export default async function ProjectArticlePage({ params }: Props) {
@@ -62,6 +66,7 @@ export default async function ProjectArticlePage({ params }: Props) {
     const mdxComponents = {
         h2: (props: HeadingProps) => <ArticleHeading {...props} level={2} />,
         h3: (props: HeadingProps) => <ArticleHeading {...props} level={3} />,
+        h4: (props: HeadingProps) => <ArticleHeading {...props} level={4} />,
     };
 
     return (
