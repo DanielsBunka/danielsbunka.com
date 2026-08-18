@@ -13,6 +13,7 @@ import {
 } from "@/lib/article-headings";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import ArticleTableOfContents from "./ArticleTableOfContents";
+import ProjectShowcase from "./ProjectShowcase";
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -67,6 +68,7 @@ export default async function ProjectArticlePage({ params }: Props) {
         h2: (props: HeadingProps) => <ArticleHeading {...props} level={2} />,
         h3: (props: HeadingProps) => <ArticleHeading {...props} level={3} />,
         h4: (props: HeadingProps) => <ArticleHeading {...props} level={4} />,
+        ProjectShowcase,
     };
 
     return (

@@ -189,6 +189,7 @@ body {
 .terminal-link-btn.large { margin-top: 0; font-size: 13px; padding: 10px 20px; }
 .terminal-link-btn.no-margin { margin-top: 0; }
 .terminal-link-btn.compact { margin: 0; padding: 4px 12px; font-size: 12px; height: fit-content; }
+.markdown-body .terminal-link-btn { color: #ffffff; text-decoration: none; font-weight: 700; }
 
 @media (hover: hover) {
   .terminal-link-btn:hover { background-color: transparent; color: #111111; }
@@ -221,6 +222,18 @@ body {
 .markdown-body pre code { background-color: transparent; color: inherit; padding: 0; font-size: 14px; }
 .markdown-body img { max-width: 100%; height: auto; display: block; margin: 40px 0; border: 1px solid #e8e8e8; }
 .markdown-body strong, .markdown-body b { color: var(--ink-black) !important; font-weight: 700 !important; }
+
+/* Project Showcase */
+.project-showcase { width: 100%; margin: 32px auto 48px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.markdown-body h3:has(+ .project-showcase) { margin-top: 64px; text-align: center; }
+.project-showcase-narrow { max-width: 400px; }
+.project-showcase-medium { max-width: 600px; }
+.project-showcase-wide { max-width: 760px; }
+.project-showcase-full { max-width: none; }
+.project-showcase-figure { width: 100%; margin: 0; }
+.markdown-body .project-showcase-image { width: 100%; height: auto; display: block; margin: 0; border: 1px solid var(--border-medium); }
+.project-showcase-caption { margin-top: 12px; color: var(--ink-grey); font-family: var(--font-reading); font-size: 12px; line-height: 1.5; text-align: center; }
+.project-demo-btn { min-width: 170px; justify-content: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
 
 .file-tree { margin: 32px 0; padding: 20px; color: var(--bg-white); background-color: var(--ink-black); font-family: var(--font-mono); }
 .file-tree figcaption { margin-bottom: 16px; font-size: 14px; font-weight: 700; }
