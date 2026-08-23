@@ -13,6 +13,7 @@ const PROJECTS_DIR = path.join(process.cwd(), "content/projects");
 // The shape of the frontmatter at the top of each MDX file
 export type ProjectFrontmatter = {
   title: string;
+  metadataTitle?: string;
   description: string;
   tags: string[];
   github: string;

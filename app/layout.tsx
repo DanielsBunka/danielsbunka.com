@@ -11,8 +11,16 @@ import "./globals.css";
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 
 export const metadata: Metadata = {
-  title: "Daniels Bunka | Portfolio",
-  description: "CS Student at LJMU and Software Engineer",
+  metadataBase: new URL("https://danielsbunka.com"),
+  title: {
+    default: "Portfolio | Daniels Bunka",
+    template: "%s | Daniels Bunka",
+  },
+  description: "Computer Science student at Liverpool John Moores University showcasing projects in Python, AI, web development, Docker, networking and self-hosting.",
+  applicationName: "Daniels Bunka Portfolio",
+  authors: [{ name: "Daniels Bunka" }],
+  creator: "Daniels Bunka",
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({

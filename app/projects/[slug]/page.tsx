@@ -1,5 +1,6 @@
 // app/projects/[slug]/page.tsx
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
     isValidElement,
@@ -20,6 +21,25 @@ type Props = {
 };
 
 type HeadingProps = ComponentPropsWithoutRef<"h2">;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const project = getProjectBySlug(slug);
+
+    if (!project) {
+        return {
+            title: "Page Not Found",
+            description: "The requested page could not be found.",
+            robots: { index: false, follow: false },
+        };
+    }
+
+    return {
+        title: project.frontmatter.metadataTitle ?? project.frontmatter.title,
+        description: project.frontmatter.description,
+        alternates: { canonical: `/projects/${slug}` },
+    };
+}
 
 function getNodeText(node: ReactNode): string {
     if (typeof node === "string" || typeof node === "number") {

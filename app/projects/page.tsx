@@ -1,6 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllProjects } from "@/lib/mdx";
 import ProjectList from "./ProjectList";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Explore my software engineering projects covering Python, AI, web development, APIs, Docker, networking and self-hosted infrastructure.",
+  alternates: { canonical: "/projects" },
+};
 
 export default function ProjectsPage() {
   const projects = getAllProjects();
