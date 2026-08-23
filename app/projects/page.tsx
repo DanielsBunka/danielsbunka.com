@@ -16,7 +16,7 @@ export default function ProjectsPage() {
       </div>
       <div className="content-container">
         <h1 className="page-title">Projects</h1>
-        <p className="page-subtitle">Things I've built.</p>
+        <p className="page-subtitle">Things I&apos;ve built.</p>
         <ProjectList projects={projects} />
       </div>
     </main>
