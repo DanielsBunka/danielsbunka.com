@@ -15,6 +15,7 @@ import {
 import { MDXRemote } from "next-mdx-remote/rsc";
 import ArticleTableOfContents from "./ArticleTableOfContents";
 import ProjectShowcase from "./ProjectShowcase";
+import { getSocialMetadata } from "@/lib/metadata";
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -30,14 +31,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return {
             title: "Page Not Found",
             description: "The requested page could not be found.",
+            alternates: { canonical: null },
             robots: { index: false, follow: false },
+            openGraph: null,
+            twitter: null,
         };
     }
 
+    const metadataTitle = project.frontmatter.metadataTitle ?? project.frontmatter.title;
+
     return {
-        title: project.frontmatter.metadataTitle ?? project.frontmatter.title,
+        title: metadataTitle,
         description: project.frontmatter.description,
         alternates: { canonical: `/projects/${slug}` },
+        ...getSocialMetadata({
+            title: `${metadataTitle} | Daniels Bunka`,
+            description: project.frontmatter.description,
+            url: `/projects/${slug}`,
+            type: "article",
+        }),
     };
 }
 

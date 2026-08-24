@@ -4,11 +4,13 @@
 import type { Metadata } from "next";
 // Imports Fonts from fonts.google.com
 import {JetBrains_Mono} from "next/font/google";
+import { getSocialMetadata } from "@/lib/metadata";
 // Imports my CSS file
 import "./globals.css";
 
 // Set the fonts as variables
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
+const description = "Computer Science student at Liverpool John Moores University showcasing projects in Python, AI, web development, Docker, networking and self-hosting.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://danielsbunka.com"),
@@ -16,11 +18,12 @@ export const metadata: Metadata = {
     default: "Portfolio | Daniels Bunka",
     template: "%s | Daniels Bunka",
   },
-  description: "Computer Science student at Liverpool John Moores University showcasing projects in Python, AI, web development, Docker, networking and self-hosting.",
+  description,
   applicationName: "Daniels Bunka Portfolio",
   authors: [{ name: "Daniels Bunka" }],
   creator: "Daniels Bunka",
   alternates: { canonical: "/" },
+  ...getSocialMetadata({ title: "Portfolio | Daniels Bunka", description, url: "/" }),
 };
 
 export default function RootLayout({

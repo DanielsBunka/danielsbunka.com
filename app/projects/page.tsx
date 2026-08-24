@@ -2,11 +2,15 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllProjects } from "@/lib/mdx";
 import ProjectList from "./ProjectList";
+import { getSocialMetadata } from "@/lib/metadata";
+
+const description = "Explore my software engineering projects covering Python, AI, web development, APIs, Docker, networking and self-hosted infrastructure.";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Explore my software engineering projects covering Python, AI, web development, APIs, Docker, networking and self-hosted infrastructure.",
+  description,
   alternates: { canonical: "/projects" },
+  ...getSocialMetadata({ title: "Projects | Daniels Bunka", description, url: "/projects" }),
 };
 
 export default function ProjectsPage() {
