@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 const hats = [
@@ -41,8 +42,15 @@ export default function Home() {
 
           <div className="hero-photo-container">
             <div className="profile-mask">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/profile.jpg" alt="Daniels Bunka" className="profile-img" />
+              <Image
+                src="/images/profile.webp"
+                alt="Daniels Bunka"
+                fill
+                unoptimized
+                loading="eager"
+                fetchPriority="high"
+                className="profile-img"
+              />
             </div>
             {currentHat.src && <img src={currentHat.src} alt={currentHat.name} className="overlay-img" />}
             {currentMoustache.src && <img src={currentMoustache.src} alt={currentMoustache.name} className="overlay-img" />}
