@@ -6,14 +6,11 @@
 
 export const TAGS = [
   "JavaScript",
-  "TypeScript",
   "Python",
   "HTML",
   "CSS",
   "SQLite",
   "Flask",
-  "React",
-  "Next.js",
   "Docker",
   "Networking",
   "AI",

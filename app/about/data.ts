@@ -47,7 +47,7 @@ export const SYSTEM_LOGS = [
     },
     {
         id: "log_08",
-        date: "2026.06",
+        date: "2026.08",
         title: "Launching: danielsbunka.com",
         description: "Launching the current website that you are on to showcase my skills and portfolio to potential employers or anyone potentially interested in my Computer Science skills."
     },
