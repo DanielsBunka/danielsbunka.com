@@ -6,6 +6,7 @@
 
 export const TAGS = [
   "JavaScript",
+  "TypeScript",
   "Python",
   "HTML",
   "CSS",

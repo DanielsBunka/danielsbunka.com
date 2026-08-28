@@ -1,0 +1,81 @@
+---
+title: "Homelab"
+description: "A self-hosted server running ZimaOS with Docker containers for personal projects and services including the SMS Assistant."
+tags: ["Docker", "Networking"]
+github: ""
+projectDate: "2026-03"
+publishedAt: "28-08-2026"
+---
+
+## Overview
+My Homelab is a self-hosted server built from a second hand Lenovo ThinkCentre. It acts as an integral part of my setup and helps with development. One of its main uses is synchronising important files between my personal PC and my Homelab, such as my coding projects and my
+university coursework, so that they can be accessed remotely. This is particularly useful for when I am accessing university PCs. I also set up a browser accessible Visual Studio Code environment on my Homelab,
+giving me access to my files and preferred editor configuration from my university computers. This gives me a consistent development environment, regardless of where I am or what device I use. Beyond
+it helping with my university experience, the Homelab also continuously runs my personal projects such as my [SMS Assistant](/projects/sms-assistant) that allows me to request information such as train times 24/7 via SMS. 
+
+The idea of getting a Homelab originally started from watching Youtube videos about the interesting services people were hosting on their Homelabs and videos that showed me how to set up my own Homelab. I became more and more convinced of the idea of getting a Homelab as I progressed further into my first year at university. During my first year, I was often unable to access or continue working on my
+coursework at university because my files were stored on my personal PC. On top of this, using a university PC meant reconfiguring my IDE, logging in to GitHub, setting up my repositories and just constantly 
+having to re-adjust everything whenever I logged into a new university PC. A homelab was increasingly becoming a solution to these problems as I'd have a central place for my files and I could host a Visual Studio
+Code server that would work as a remote IDE.
+
+
+### Hardware
+- **Model:** Lenovo ThinkCentre M900 Tiny
+- **CPU:** Intel Core i5-6500T @ 2.50 GHz (4 cores, 4 threads)
+- **RAM:** 12 GB
+- **Storage:** 120 GB SanDisk SSD
+
+I bought the ThinkCentre second hand through Ebay, this is as used business PCs such as this ThinkCentre provide a cheap entry point into experimenting with Homelabs. This ThinkCentre originally had 4GB of RAM
+when I purchased it and was clearly a weak point for this particular system. Hosting services and especially Docker services use up a lot of RAM, therefore increasing the amount of RAM would improve the capability
+and performance of this system greatly. This is why I bought another 8GB of RAM to increase the total RAM to 12GB.
+
+### Software
+- **Operating System:** ZimaOS
+- **Containerisation:** Docker, Docker Compose
+- **File Synchronisation:** Syncthing
+- **Remote Development:** `code-server`  (browser-based VS Code)
+- **External Access:** Cloudflare Tunnel (`cloudflared` connector)
+- **Personal Project:** [SMS Assistant](/projects/sms-assistant)
+
+I chose ZimaOS due to it being a very beginner friendly and accessible server operating system. It makes controlling and configuring my Homelab easy through a browser based dashboard and makes adding services
+easy through its App Store. ZimaOS provides an easy experience for adding applications and services through using Docker to deploy applications and services as separate containers. I added my personal project [SMS Assistant](/projects/sms-assistant) through a `docker-compose.yml` which provides a standard set of instructions for the container to follow. This ensures a standardised repeatable setup.
+
+## Services 
+The services that run on my Homelab provide solutions to several problems I was having, from being a way to centralise all my coding projects or university coursework, to hosting personal projects such as SMS Assistant. My Homelab is becoming increasingly useful within my life. It makes my workflow more efficient and simpler in several ways. 
+
+One of those ways is by using the service called Syncthing. Syncthing was my solution to constantly being unable to access my coursework at university due to my work being stored on my personal PC. Syncthing
+synchronises folders/files that I have selected so that whenever a file changes or updates on my personal PC, it has the exact same version and copy on my Homelab. I've created 2 folders that have
+all my coding projects and university coursework that I've designated as synced with Syncthing. This ensures that my Homelab will always have the newest copy of my coding projects or university coursework.
+
+The next important service on my Homelab, that I rely on, is `code-server`. `code-server` is a service that provides me with a browser based VS Code environment hosted on my Homelab. This allows me to have a
+consistent setup that I can access remotely through a browser. This is as `code-server` retains the settings and configuration that I set. Pair this with my Syncthing folders, which I did within my `code-server` setup
+and I can code remotely on a university computer and have it update on my Homelab and Personal PC ensuring I always have the most recent files of my work. The real motivation for setting this up however was
+having to constantly re-log into GitHub on my university computers, whilst on a remote setup like this I put my subdomain into the browser, enter a password, and I'm in a configured VS Code setup that is logged into my GitHub and has all my recent files ready in its environment.
+
+Arguably the most important service in my Homelab setup is Cloudflare Tunnel. Cloudflare Tunnel is the service that allows me to access my Homelab's services outside of my private home network. The way this works
+is that `cloudflared`, the actual application on my Homelab, establishes a connection with Cloudflare. This creates a tunnel between Cloudflare's network and my Homelab. This approach provides me with a secure
+way to access my Homelab's services as other alternative ways of connecting my Homelab's services to the internet were less secure. There were alternative approaches such as port forwarding however they posed 
+security risks and increased the attack surface for my home network, therefore I chose Cloudflare Tunnel as a viable solution. The way these services are connecting to the internet are through subdomains
+that I've configured within Cloudflare. I'll use an example, so I might have my main domain be `example.com` and I want a subdomain to route requests from the internet to my Homelab `code-server` service. I'd 
+configure within Cloudflare to have `servercode.example.com` route the request through the tunnel to my `code-server` service giving me the service through the internet. I currently have 3 subdomains that allow me
+to access services from the internet, these services being: a file browser to let me download and upload files to my homelab remotely, `code-server` and a SMS Assistant webhook that was needed for my setup. These
+subdomains give me an easy way to access my Homelab's services from university using a simple browser by just typing in a URL.
+
+## What I learned
+Setting up my own Homelab has taught me a lot of new things and made me explore an area of computing that I hadn't before. This has led me to use new tools, learn new concepts, and understand the
+processes and infrastructure needed to run a server that hosts different services.
+
+One of the concepts I learned about was containerisation through the use of Docker. Docker is quite a useful tool when managing server infrastructure because Docker enables applications to run in separate
+environments called containers. These containers provide a standardised environment containing the application and its required dependencies, allowing the setup to remain consistent and repeatable even across different systems. This way of hosting applications makes maintaining a server way easier as I don't have to worry about applications conflicting with each other. Setting up applications
+becomes way easier as Docker handles most of the setup for me, and it minimises the troubleshooting measures I need to take when something goes wrong as I know the Docker container is a reliable constant.
+Learning about containerisation has been quite helpful in understanding how server infrastructure works and made me more confident about working with servers in the future. This project has made me
+more confident in deploying future applications that run on a server as I know my way around Docker, at least at a beginner's level. 
+
+Another area that this project has made me explore is Networking. Before this project, I had never bought a domain name or ever used Cloudflare's services. However this project forced me to adapt and learn
+about networking concepts and how to link my Homelab to the internet. This project taught me about services such as Cloudflare Tunnel that let me securely, without exposing my ports, connect a service that's on
+my private home network onto the internet. It also taught me the ease of purchasing a domain name and configuring subdomains. None of these things were particularly hard. I just didn't have any experience and
+therefore didn't have much confidence and knowledge in this area. This project has given me the knowledge and confidence to know that I can host stuff on the internet more easily than I would have previously thought. 
+
+Building my Homelab has solved the original problems that I initially got the Homelab for, such as accessing my coursework remotely and having a consistent development environment at university, whilst teaching
+me a lot more about containerisation and networking. It has also given me a platform to host my personal projects such as SMS Assistant. This cheap second-hand Homelab has turned out to be a great investment in usefulness and
+knowledge. It has through experience taught me things that will be useful for future projects or endeavours and has helped me develop into a more well-rounded developer with more knowledge and experience. 
