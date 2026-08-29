@@ -4,6 +4,7 @@
 import type { Metadata } from "next";
 // Imports Fonts from fonts.google.com
 import {JetBrains_Mono} from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { getSocialMetadata } from "@/lib/metadata";
 // Imports my CSS file
 import "./globals.css";
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="en" className={`${jetbrainsMono.variable}`} data-scroll-behavior="smooth">
         <body className="antialiased">
           {children}
+          <Analytics />
         </body>
     </html>
   );
