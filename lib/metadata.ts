@@ -19,7 +19,7 @@ export function getSocialMetadata({ title, description, url, type = "website" }:
     openGraph: {
       type,
       locale: "en_GB",
-      siteName: "Daniels Bunka Portfolio",
+      siteName: "Daniels Bunka",
       title,
       description,
       url,

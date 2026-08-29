@@ -11,20 +11,21 @@ import "./globals.css";
 
 // Set the fonts as variables
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
-const description = "Computer Science student at Liverpool John Moores University showcasing projects in Python, AI, web development, Docker, networking and self-hosting.";
+const title = "Daniels Bunka | Portfolio";
+const description = "Portfolio of Daniels Bunka, a Computer Science student at Liverpool John Moores University, featuring software, web, AI and self-hosting projects.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://danielsbunka.com"),
   title: {
-    default: "Portfolio | Daniels Bunka",
+    default: title,
     template: "%s | Daniels Bunka",
   },
   description,
-  applicationName: "Daniels Bunka Portfolio",
+  applicationName: "Daniels Bunka",
   authors: [{ name: "Daniels Bunka" }],
   creator: "Daniels Bunka",
   alternates: { canonical: "/" },
-  ...getSocialMetadata({ title: "Portfolio | Daniels Bunka", description, url: "/" }),
+  ...getSocialMetadata({ title, description, url: "/" }),
 };
 
 export default function RootLayout({

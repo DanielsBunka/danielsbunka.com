@@ -19,6 +19,14 @@ const moustaches = [
   { name: "long", src: "/overlays/moustaches/long.png" },
 ];
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Daniels Bunka",
+  alternateName: ["Daniels Bunka Portfolio", "danielsbunka.com"],
+  url: "https://danielsbunka.com/",
+};
+
 function cycle(current: number, direction: 1 | -1, length: number) {
   return (current + direction + length) % length;
 }
@@ -32,6 +40,12 @@ export default function Home() {
 
   return (
     <main className="home-layout">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <div className="hero-wrapper">
         <div className="hero-photo-grid">
           
