@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   applicationName: "Daniels Bunka",
   authors: [{ name: "Daniels Bunka" }],
   creator: "Daniels Bunka",
-  alternates: { canonical: "/" },
+  robots: { index: false, follow: true },
   ...getSocialMetadata({ title, description, url: "/" }),
 };
 

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Page Not Found",
   description: "The requested page could not be found.",
   alternates: { canonical: null },
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
   openGraph: null,
   twitter: null,
 };
